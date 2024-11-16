@@ -13,15 +13,14 @@
       number = true;
       relativenumber = true;
 
-      # Set tabs to 2 spaces
-      tabstop = 2;
-      softtabstop = 2;
-      showtabline = 2;
+      tabstop = 4;
+      softtabstop = 4;
+      showtabline = 4;
       expandtab = true;
 
       # Enable auto indenting and set it to spaces
       smartindent = true;
-      shiftwidth = 2;
+      shiftwidth = 4;
 
       # Enable smart indenting (see https://stackoverflow.com/questions/1204149/smart-wrap-in-vim)
       breakindent = true;
@@ -31,7 +30,7 @@
       incsearch = true;
 
       # Enable text wrap
-      wrap = true;
+      wrap = false;
 
       # Better splitting
       splitbelow = true;
@@ -45,6 +44,8 @@
       smartcase = true; # Don't ignore case with capitals
       grepprg = "rg --vimgrep";
       grepformat = "%f:%l:%c:%m";
+
+      spell = false;
 
       # Decrease updatetime
       updatetime = 50; # faster completion (4000ms default)
@@ -68,7 +69,7 @@
       signcolumn = "yes";
 
       # Enable cursor line highlight
-      cursorline = false; # Highlight the line where the cursor is located
+      cursorline = true; # Highlight the line where the cursor is located
 
       # Set fold settings
       # These options were reccommended by nvim-ufo
@@ -84,7 +85,7 @@
       scrolloff = 8;
 
       # Place a column line
-      colorcolumn = "80";
+      # colorcolumn = "80";
 
       # Reduce which-key timeout 
       timeoutlen = 200;
@@ -104,11 +105,11 @@
       ];
 
       # Enable chars list
-      list = true; # Show invisible characters (tabs, eol, ...)
-      listchars = "eol:↲,tab:|->,lead:·,space: ,trail:•,extends:→,precedes:←,nbsp:␣";
+      # list = true; # Show invisible characters (tabs, eol, ...)
+      # listchars = "eol:↲,tab:|->,lead:·,space: ,trail:•,extends:→,precedes:←,nbsp:␣";
 
       # More space in the neovim command line for displaying messages
-      cmdheight = 2;
+      cmdheight = 1;
 
       # We don't need to see things like INSERT anymore
       showmode = false;

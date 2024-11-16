@@ -25,9 +25,9 @@
         width = 40;
         height = 15;
         autoExpandWidth = false;
-        mappings = {
-          "<space>" = "none";
-        };
+        # mappings = {
+        #   "<space>" = "none";
+        # };
       };
     };
 
