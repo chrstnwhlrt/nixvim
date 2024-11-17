@@ -89,6 +89,12 @@
           ruff_lsp = {
             enable = true;
           };
+          yamlls = {
+            enable = true;
+          };
+          jsonls = {
+            enable = true;
+          };
           rust_analyzer = {
             enable = true;
             installCargo = true;
