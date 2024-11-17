@@ -8,6 +8,7 @@
     ./cmp.nix
     ./copilot.nix
     ./lspkind.nix
+    ./schemastore.nix
   ];
 
   options = {
@@ -17,5 +18,6 @@
     cmp.enable = lib.mkDefault true;
     copilot.enable = lib.mkDefault true;
     lspkind.enable = lib.mkDefault true;
+    schemastore.enable = lib.mkDefault true;
   };
 }

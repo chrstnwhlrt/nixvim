@@ -7,119 +7,6 @@
   config = lib.mkIf config.keys.enable {
     globals.mapleader = " ";
     keymaps = [
-      # Disable arrow keys
-      # {
-      #   mode = [
-      #     "n"
-      #     "i"
-      #   ];
-      #   key = "<Up>";
-      #   action = "<Nop>";
-      #   options = {
-      #     silent = true;
-      #     noremap = true;
-      #     desc = "Disable Up arrow key";
-      #   };
-      # }
-      # {
-      #   mode = [
-      #     "n"
-      #     "i"
-      #   ];
-      #   key = "<Down>";
-      #   action = "<Nop>";
-      #   options = {
-      #     silent = true;
-      #     noremap = true;
-      #     desc = "Disable Down arrow key";
-      #   };
-      # }
-      # {
-      #   mode = [
-      #     "n"
-      #     "i"
-      #   ];
-      #   key = "<Right>";
-      #   action = "<Nop>";
-      #   options = {
-      #     silent = true;
-      #     noremap = true;
-      #     desc = "Disable Right arrow key";
-      #   };
-      # }
-      # {
-      #   mode = [
-      #     "n"
-      #     "i"
-      #   ];
-      #   key = "<Left>";
-      #   action = "<Nop>";
-      #   options = {
-      #     silent = true;
-      #     noremap = true;
-      #     desc = "Disable Left arrow key";
-      #   };
-      # }
-      # Tabs
-      {
-        mode = "n";
-        key = "<leader><tab>l";
-        action = "<cmd>tablast<cr>";
-        options = {
-          silent = true;
-          desc = "Last tab";
-        };
-      }
-
-      {
-        mode = "n";
-        key = "<leader><tab>f";
-        action = "<cmd>tabfirst<cr>";
-        options = {
-          silent = true;
-          desc = "First Tab";
-        };
-      }
-
-      {
-        mode = "n";
-        key = "<leader><tab><tab>";
-        action = "<cmd>tabnew<cr>";
-        options = {
-          silent = true;
-          desc = "New Tab";
-        };
-      }
-
-      {
-        mode = "n";
-        key = "<leader><tab>]";
-        action = "<cmd>tabnext<cr>";
-        options = {
-          silent = true;
-          desc = "Next Tab";
-        };
-      }
-
-      {
-        mode = "n";
-        key = "<leader><tab>d";
-        action = "<cmd>tabclose<cr>";
-        options = {
-          silent = true;
-          desc = "Close tab";
-        };
-      }
-
-      {
-        mode = "n";
-        key = "<leader><tab>[";
-        action = "<cmd>tabprevious<cr>";
-        options = {
-          silent = true;
-          desc = "Previous Tab";
-        };
-      }
 
       # Windows
       {
@@ -161,26 +48,46 @@
           desc = "Split window right";
         };
       }
+      
+      {
+        mode = "n";
+        key = "<C-h>";
+        action = "<C-W>h";
+        options = {
+          silent = true;
+          desc = "Go to the left window";
+        };
+      }
 
-      # {
-      #   mode = "n";
-      #   key = "<leader>-";
-      #   action = "<C-W>s";
-      #   options = {
-      #     silent = true;
-      #     desc = "Split window below";
-      #   };
-      # }
+      {
+        mode = "n";
+        key = "<C-j>";
+        action = "<C-W>j";
+        options = {
+          silent = true;
+          desc = "Go to the lower window";
+        };
+      }
 
-      # {
-      #   mode = "n";
-      #   key = "<leader>|";
-      #   action = "<C-W>v";
-      #   options = {
-      #     silent = true;
-      #     desc = "Split window right";
-      #   };
-      # }
+      {
+        mode = "n";
+        key = "<C-k>";
+        action = "<C-W>k";
+        options = {
+          silent = true;
+          desc = "Go to the upper window";
+        };
+      }
+
+      {
+        mode = "n";
+        key = "<C-l>";
+        action = "<C-W>l";
+        options = {
+          silent = true;
+          desc = "Go to the right window";
+        };
+      }
 
       {
         mode = "n";
@@ -230,37 +137,6 @@
         options = {
           silent = true;
           desc = "Don't save current session";
-        };
-      }
-
-      # Toggle
-      {
-        mode = "n";
-        key = "<leader>ul";
-        action = ":lua ToggleLineNumber()<cr>";
-        options = {
-          silent = true;
-          desc = "Toggle Line Numbers";
-        };
-      }
-
-      {
-        mode = "n";
-        key = "<leader>uL";
-        action = ":lua ToggleRelativeLineNumber()<cr>";
-        options = {
-          silent = true;
-          desc = "Toggle Relative Line Numbers";
-        };
-      }
-
-      {
-        mode = "n";
-        key = "<leader>uw";
-        action = ":lua ToggleWrap()<cr>";
-        options = {
-          silent = true;
-          desc = "Toggle Line Wrap";
         };
       }
 
@@ -456,6 +332,16 @@
         mode = "n";
         key = "<Esc>";
         action = "<cmd>nohlsearch<CR>";
+      }
+
+      {
+        mode = "n";
+        key = "<leader>e";
+        action = "<cmd>Neotree toggle<cr>";
+        options = {
+          silent = true;
+          desc = "Open neotree";
+        };
       }
     ];
   };
