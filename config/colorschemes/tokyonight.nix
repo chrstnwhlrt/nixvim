@@ -9,6 +9,7 @@
         enable = true;
         settings = {
           style = "night";
+          transparent = true;
           styles = {
             floats = "transparent";
             sidebars = "transparent";
