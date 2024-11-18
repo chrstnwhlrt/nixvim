@@ -126,6 +126,10 @@
       inccommand = "split"; # (https://neovim.io/doc/user/options.html#'inccommand')
     };
 
+    globals = {
+      markdown_fenced_languages = "['html', 'python', 'bash=sh', 'javascript', 'typescript', 'zsh=sh', 'yaml', 'json', 'rust', 'typescriptreact', 'css']";
+    };
+
     extraConfigLua = ''
       local opt = vim.opt
       local g = vim.g

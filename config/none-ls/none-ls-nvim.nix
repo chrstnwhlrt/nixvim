@@ -48,7 +48,16 @@
             enable = true;
             settings = ''
               {
-                extra_args = { "--no-semi", "--single-quote" },
+                extra_args = { 
+                    "--bracket-same-line", "true",
+                    "--single-quote", "false",
+                    "--trailing-comma", "all",
+                    "--no-semi",
+                    "--arrow-parens", "avoid",
+                    "--print-width", "160",
+                    "--tab-width", "4",
+                    "--indent", "4"
+                },
               }
             '';
           };
@@ -56,7 +65,7 @@
             enable = false;
           };
           stylua = {
-            enable = true;
+            enable = false;
           };
           black = {
             enable = false;
