@@ -9,20 +9,6 @@
       settings = {
         enableLspFormat = false;
         updateInInsert = false;
-        onAttach = ''
-          function(client, bufnr)
-              if client.supports_method "textDocument/formatting" then
-                vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
-                vim.api.nvim_create_autocmd("BufWritePre", {
-                  group = augroup,
-                  buffer = bufnr,
-                  callback = function()
-                    vim.lsp.buf.format { bufnr = bufnr }
-                  end,
-                })
-              end
-            end
-        '';
       };
       sources = {
         code_actions = {
@@ -42,12 +28,11 @@
             enable = false;
           };
           nixfmt = {
-            enable = true;
+            enable = false;
           };
           prettier = {
-            enable = true;
-            settings = ''
-              {
+            enable = false;
+            settings = '' {
                 extra_args = { 
                     "--bracket-same-line", "true",
                     "--single-quote", "false",
@@ -57,9 +42,8 @@
                     "--print-width", "160",
                     "--tab-width", "4",
                     "--indent", "4"
-                },
-              }
-            '';
+                }
+            } '';
           };
           google_java_format = {
             enable = false;

@@ -4,21 +4,10 @@
     conform.enable = lib.mkEnableOption "Enable conform module";
   };
   config = lib.mkIf config.conform.enable {
-
     plugins.conform-nvim = {
       enable = true;
       settings = {
         notify_on_error = true;
-        # default_format_opts = {
-        #   lsp_format = "fallback";
-        # };
-        # format_after_save = {
-        #   lsp_format = "fallback";
-        # };
-        format_on_save = {
-          timeoutMs = 500;
-          lspFallback = true;
-        };
         formatters_by_ft = {
           html = {
             __unkeyed-1 = "prettierd";
@@ -50,9 +39,9 @@
             __unkeyed-2 = "prettier";
             stop_after_first = true;
           };
-          java = [ "google-java-format" ];
-          python = [ "black" ];
-          lua = [ "stylua" ];
+          # java = [ "google-java-format" ];
+          # python = [ "black" ];
+          # lua = [ "stylua" ];
           nix = [ "nixfmt" ];
           markdown = {
             __unkeyed-1 = "prettierd";
@@ -61,6 +50,13 @@
           };
           rust = [ "rustfmt" ];
         };
+  #       formatters = {
+  #         prettier = {
+  #           prepend_args = function()
+  #               return { "--tab-width", "4" }
+  #           end,
+  #         };
+		# };
       };
     };
 
@@ -92,7 +88,6 @@
           desc = "Format Buffer";
         };
       }
-
       {
         mode = "v";
         key = "<leader>cF";

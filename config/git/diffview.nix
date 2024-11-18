@@ -4,9 +4,10 @@
     diffview.enable = lib.mkEnableOption "Enable diffview module";
   };
   config = lib.mkIf config.diffview.enable {
-
     plugins.diffview = {
       enable = true;
+      hgCmd = null;
+      gitCmd = [ "git" ];
     };
   };
 }
