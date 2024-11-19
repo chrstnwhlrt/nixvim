@@ -6,6 +6,7 @@
 {
   imports = [
     ./telescope-nvim.nix
+    ./telescope-live-grep-args.nix
   ];
 
   options = {
@@ -13,5 +14,6 @@
   };
   config = lib.mkIf config.telescope.enable {
     telescope-nvim.enable = lib.mkDefault true;
+    telescope-live-grep-args.enable = lib.mkDefault true;
   };
 }
