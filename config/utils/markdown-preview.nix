@@ -1,6 +1,5 @@
 { lib, config, ... }:
 {
-  # TODO: Switch to peek.nvim
   options = {
     markdown-preview.enable = lib.mkEnableOption "Enable markdown-preview module";
   };
