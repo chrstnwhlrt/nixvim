@@ -44,7 +44,7 @@
     markdown-preview.enable = lib.mkDefault true;
     mini.enable = lib.mkDefault true;
     neocord.enable = lib.mkDefault false;
-    neotest.enable = lib.mkDefault true;
+    neotest.enable = lib.mkDefault false;
     nvim-autopairs.enable = lib.mkDefault true;
     nvim-colorizer.enable = lib.mkDefault true;
     nvim-surround.enable = lib.mkDefault true;
@@ -52,7 +52,7 @@
     oil.enable = lib.mkDefault false;
     persistence.enable = lib.mkDefault true;
     plenary.enable = lib.mkDefault true;
-    project-nvim.enable = lib.mkDefault true;
+    project-nvim.enable = lib.mkDefault false;
     sidebar.enable = lib.mkDefault false;
     tmux-navigator.enable = lib.mkDefault false;
     todo-comments.enable = lib.mkDefault true;

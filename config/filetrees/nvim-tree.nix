@@ -9,6 +9,7 @@
       enable = true;
       openOnSetupFile = true;
       autoReloadOnWrite = true;
+      updateFocusedFile.enable = true;
       renderer = {
         rootFolderLabel = false;
       };
@@ -16,9 +17,9 @@
         side = "right";
         width = 50;
       };
-      actions = {
-        changeDir.enable = false;
-      };
+      # actions = {
+      #   changeDir.enable = false;
+      # };
     };
   };
 }
