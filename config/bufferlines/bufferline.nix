@@ -9,15 +9,16 @@
         enable = true;
         settings = {
           options = {
-            separatorStyle = "thick"; # “slant”, “padded_slant”, “slope”, “padded_slope”, “thick”, “thin“
-            offsets = [
-              {
-                filetype = "neo-tree";
-                text = "Neo-tree";
-                highlight = "Directory";
-                text_align = "left";
-              }
-            ];
+            separatorStyle = "thin"; # “slant”, “padded_slant”, “slope”, “padded_slope”, “thick”, “thin“
+            diagnostics = "nvim_lsp";
+            custom_filter = ''
+              function(buf_number, buf_numbers)
+                 -- Exclude quickfix buffers
+                 if vim.bo[buf_number].filetype ~= "qf" then
+                   return true
+                 end
+               end
+            '';
           };
         };
       };
@@ -41,23 +42,23 @@
         };
       }
 
-      {
-        mode = "n";
-        key = "<S-l>";
-        action = "<cmd>BufferLineCycleNext<cr>";
-        options = {
-          desc = "Cycle to next buffer";
-        };
-      }
-
-      {
-        mode = "n";
-        key = "<S-h>";
-        action = "<cmd>BufferLineCyclePrev<cr>";
-        options = {
-          desc = "Cycle to previous buffer";
-        };
-      }
+      # {
+      #   mode = "n";
+      #   key = "<S-l>";
+      #   action = "<cmd>BufferLineCycleNext<cr>";
+      #   options = {
+      #     desc = "Cycle to next buffer";
+      #   };
+      # }
+      #
+      # {
+      #   mode = "n";
+      #   key = "<S-h>";
+      #   action = "<cmd>BufferLineCyclePrev<cr>";
+      #   options = {
+      #     desc = "Cycle to previous buffer";
+      #   };
+      # }
 
       {
         mode = "n";
@@ -86,23 +87,23 @@
       #   };
       # }
 
-      {
-        mode = "n";
-        key = "<leader>br";
-        action = "<cmd>BufferLineCloseRight<cr>";
-        options = {
-          desc = "Delete buffers to the right";
-        };
-      }
-
-      {
-        mode = "n";
-        key = "<leader>bl";
-        action = "<cmd>BufferLineCloseLeft<cr>";
-        options = {
-          desc = "Delete buffers to the left";
-        };
-      }
+      # {
+      #   mode = "n";
+      #   key = "<leader>br";
+      #   action = "<cmd>BufferLineCloseRight<cr>";
+      #   options = {
+      #     desc = "Delete buffers to the right";
+      #   };
+      # }
+      #
+      # {
+      #   mode = "n";
+      #   key = "<leader>bl";
+      #   action = "<cmd>BufferLineCloseLeft<cr>";
+      #   options = {
+      #     desc = "Delete buffers to the left";
+      #   };
+      # }
 
       {
         mode = "n";

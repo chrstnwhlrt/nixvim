@@ -16,7 +16,11 @@
 
       tabstop = 4;
       softtabstop = 4;
-      showtabline = 4;
+
+      # Always show the tabline
+      showtabline = 1;
+      hidden = true;
+
       expandtab = true;
 
       # Enable auto indenting and set it to spaces
@@ -95,7 +99,7 @@
       # colorcolumn = "80";
 
       # Reduce which-key timeout 
-      timeoutlen = 1000;
+      timeoutlen = 200;
       title = true;
 
       # Set encoding type
