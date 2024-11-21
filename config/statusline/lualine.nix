@@ -9,7 +9,10 @@
       settings = {
         alwaysDivideMiddle = true;
         globalstatus = true;
-        ignoreFocus = [ "neo-tree" ];
+        ignoreFocus = [
+          "neo-tree"
+          "NvimTree"
+        ];
         extensions = [ "fzf" ];
         theme = "auto";
         componentSeparators = {

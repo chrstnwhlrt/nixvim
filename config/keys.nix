@@ -337,10 +337,10 @@
       {
         mode = "n";
         key = "<leader>e";
-        action = "<cmd>Neotree toggle<cr>";
+        action = "<cmd>NvimTreeToggle<cr>";
         options = {
           silent = true;
-          desc = "Open neotree";
+          desc = "Open nvim-tree";
         };
       }
     ];

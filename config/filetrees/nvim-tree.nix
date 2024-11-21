@@ -9,6 +9,13 @@
       enable = true;
       openOnSetupFile = true;
       autoReloadOnWrite = true;
+      renderer = {
+        rootFolderLabel = false;
+      };
+      view = {
+        side = "right";
+        width = 50;
+      };
     };
   };
 }
