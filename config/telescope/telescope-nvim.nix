@@ -49,11 +49,7 @@
         };
       };
       keymaps = {
-        "<leader><space>" = {
-          action = "find_files";
-          options.desc = "Find project files";
-        };
-        "<leader>/" = {
+        "<leader>ft" = {
           action = "live_grep";
           options.desc = "Grep (root dir)";
         };

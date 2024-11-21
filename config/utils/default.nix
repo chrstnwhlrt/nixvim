@@ -8,6 +8,7 @@
     ./better-escape.nix
     ./cloak.nix
     ./comment.nix
+    ./comment-box.nix
     ./harpoon.nix
     ./markdown-preview.nix
     ./mini.nix
@@ -38,6 +39,7 @@
     better-escape.enable = lib.mkDefault false;
     cloak.enable = lib.mkDefault false;
     comment.enable = lib.mkDefault true;
+    comment-box.enable = lib.mkDefault true;
     harpoon.enable = lib.mkDefault true;
     markdown-preview.enable = lib.mkDefault true;
     mini.enable = lib.mkDefault true;
