@@ -12,7 +12,7 @@
       # Enable relative line numbers
       number = true;
       relativenumber = true;
-      # TODO: clipboard = "unnamedplus";
+      clipboard = "unnamedplus";
 
       tabstop = 4;
       softtabstop = 4;
@@ -49,7 +49,7 @@
       spell = false;
 
       # Decrease updatetime
-      updatetime = 50; # faster completion (4000ms default)
+      updatetime = 100; # faster completion (4000ms default)
 
       # Set completeopt to have a better completion experience
       completeopt = [
@@ -61,6 +61,7 @@
       # Enable persistent undo history
       swapfile = false;
       backup = false;
+      writebackup = false;
       undofile = true;
 
       # Enable 24-bit colors
@@ -85,11 +86,15 @@
       # Always keep 8 lines above/below cursor unless at start/end of file
       scrolloff = 8;
 
+      showcmd = false;
+      ruler = false;
+
       # Place a column line
       # colorcolumn = "80";
 
       # Reduce which-key timeout 
-      timeoutlen = 50;
+      timeoutlen = 1000;
+      title = true;
 
       # Set encoding type
       encoding = "utf-8";
@@ -116,7 +121,7 @@
       showmode = false;
 
       # Maximum number of items to show in the popup menu (0 means "use available screen space")
-      pumheight = 0;
+      pumheight = 10;
 
       # Use conform-nvim for gq formatting. ('formatexpr' is set to vim.lsp.formatexpr(), so you can format lines via gq if the language server supports it)
       formatexpr = "v:lua.require'conform'.formatexpr()";
@@ -129,27 +134,5 @@
     # globals = {
     #   markdown_fenced_languages = "['html', 'python', 'bash=sh', 'javascript', 'typescript', 'zsh=sh', 'yaml', 'json', 'rust', 'typescriptreact', 'css']";
     # };
-
-    extraConfigLua = ''
-      local opt = vim.opt
-      local g = vim.g
-      local o = vim.o
-        -- Neovide
-      if g.neovide then
-        g.neovide_fullscreen = false
-        g.neovide_hide_mouse_when_typing = false
-        g.neovide_refresh_rate = 165
-        g.neovide_cursor_vfx_mode = "ripple"
-        g.neovide_cursor_animate_command_line = true
-        g.neovide_cursor_animate_in_insert_mode = true
-        g.neovide_cursor_vfx_particle_lifetime = 5.0
-        g.neovide_cursor_vfx_particle_density = 14.0
-        g.neovide_cursor_vfx_particle_speed = 12.0
-        g.neovide_transparency = 0.8
-
-        -- Neovide Fonts
-        o.guifont = "JetBrainsMono Nerd Font:h14:Medium:i"
-      end
-    '';
   };
 }
