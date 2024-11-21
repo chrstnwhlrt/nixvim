@@ -30,6 +30,8 @@
       hlsearch = true;
       incsearch = true;
 
+      autochdir = true;
+
       # Enable text wrap
       wrap = false;
 
