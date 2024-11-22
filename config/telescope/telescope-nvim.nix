@@ -25,27 +25,11 @@
           };
         };
       };
-      # If you'd prefer Telescope not to enter a normal-like mode when hitting escape (and instead exiting), you can map <Esc> to do so via:
       settings = {
-        defaults = {
-          mappings = {
-            i = {
-              "<esc>" = {
-                __raw = ''
-                  function(...)
-                    return require("telescope.actions").close(...)
-                  end'';
-              };
-            };
-          };
-        };
         pickers = {
           colorscheme = {
             enable_preview = true;
           };
-          # find_files = {
-          #   theme = "ivy";
-          # };
         };
       };
       keymaps = {
@@ -141,10 +125,6 @@
           action = "colorscheme";
           options.desc = "Colorscheme preview";
         };
-        # "<leader>fp" = {
-        #   action = "projects";
-        #   options.desc = "Projects";
-        # };
         "<leader>sd" = {
           action = "diagnostics bufnr=0";
           options.desc = "Document Diagnostics";

@@ -17,7 +17,7 @@
   config = lib.mkIf config.git.enable {
     diffview.enable = lib.mkDefault true;
     gitsigns.enable = lib.mkDefault true;
-    lazygit.enable = lib.mkDefault true;
+    lazygit.enable = lib.mkDefault false;
     neogit.enable = lib.mkDefault false;
   };
 }
