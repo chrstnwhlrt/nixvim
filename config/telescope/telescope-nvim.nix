@@ -26,6 +26,18 @@
         };
       };
       settings = {
+        defaults = {
+          mappings = {
+            i = {
+              "<esc>" = {
+                __raw = ''
+                  function(...)
+                    return require("telescope.actions").close(...)
+                  end'';
+              };
+            };
+          };
+        };
         pickers = {
           colorscheme = {
             enable_preview = true;
