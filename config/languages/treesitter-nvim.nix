@@ -35,6 +35,7 @@
           "java"
           "markdown"
           "markdown_inline"
+          "nu"
           "python"
           "query"
           "regex"
@@ -45,7 +46,7 @@
           "toml"
           "yaml"
         ];
-        auto_install = false;
+        auto_install = true;
         incremental_selection = {
           enable = true;
           keymaps = {

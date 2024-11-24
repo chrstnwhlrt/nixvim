@@ -8,6 +8,7 @@
       enable = true;
       settings = {
         notify_on_error = true;
+        lsp_format = "fallback";
         formatters_by_ft = {
           html = {
             __unkeyed-1 = "prettierd";
