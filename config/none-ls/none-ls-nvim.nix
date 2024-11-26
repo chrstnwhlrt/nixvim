@@ -32,18 +32,19 @@
           };
           prettier = {
             enable = false;
-            settings = '' {
-                extra_args = { 
-                    "--bracket-same-line", "true",
-                    "--single-quote", "false",
-                    "--trailing-comma", "all",
-                    "--no-semi",
-                    "--arrow-parens", "avoid",
-                    "--print-width", "160",
-                    "--tab-width", "4",
-                    "--indent", "4"
-                }
-            } '';
+            settings = ''
+              {
+                             extra_args = { 
+                                 "--bracket-same-line", "true",
+                                 "--single-quote", "false",
+                                 "--trailing-comma", "all",
+                                 "--no-semi",
+                                 "--arrow-parens", "avoid",
+                                 "--print-width", "160",
+                                 "--tab-width", "4",
+                                 "--indent", "4"
+                             }
+                         } '';
           };
           google_java_format = {
             enable = false;
