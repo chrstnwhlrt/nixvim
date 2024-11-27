@@ -10,8 +10,7 @@
   config = lib.mkIf config.b64.enable {
     # Credit: https://github.com/taybart/b64.nvim
     extraConfigLua = ''
-          
-      local b64 = {}
+      b64 = {}
 
       -- encode selected text to base64
       function b64.encode()
@@ -39,7 +38,7 @@
         if vim.fn.mode() == "n" then
           vim.cmd("normal! gv")
         end
-        vim.cmd("normal! "" .. reg .. "x")
+        vim.cmd('normal! "'  .. reg .. "x")
 
         -- perform op passed enc/dec
         local update = op(vim.fn.getreg(reg))
@@ -61,6 +60,7 @@
 
       -- http://lua-users.org/wiki/BaseSixtyFour
       local dic = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+
       -- encoding
       function b64.enc(data)
         return (
@@ -110,8 +110,6 @@
             end)
         )
       end
-
-      return b64
     '';
     keymaps = [
       {
