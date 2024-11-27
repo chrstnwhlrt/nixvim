@@ -6,6 +6,8 @@
   };
   config = lib.mkIf config.keys.enable {
     globals.mapleader = " ";
+    globals.maplocalleader = " ";
+
     keymaps = [
 
       # Windows
