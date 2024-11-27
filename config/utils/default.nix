@@ -6,6 +6,7 @@
 {
   imports = [
     ./better-escape.nix
+    ./b64.nix
     ./cloak.nix
     ./comment.nix
     ./comment-box.nix
@@ -37,6 +38,7 @@
   };
   config = lib.mkIf config.utils.enable {
     better-escape.enable = lib.mkDefault false;
+    b64.enable = lib.mkDefault true;
     cloak.enable = lib.mkDefault false;
     comment.enable = lib.mkDefault true;
     comment-box.enable = lib.mkDefault true;
