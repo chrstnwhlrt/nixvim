@@ -42,6 +42,54 @@
           nixd = {
             enable = true;
           };
+          arduino_language_server = {
+            enable = true;
+          };
+          bashls = {
+            enable = true;
+          };
+          cssls = {
+            enable = true;
+          };
+          # cssmodules_ls = {
+          #   enable = true;
+          # };
+          dockerls = {
+            enable = true;
+          };
+          gopls = {
+            enable = true;
+          };
+          html = {
+            enable = true;
+          };
+          # intelephense = {
+          #   enable = true;
+          # };
+          jdtls = {
+            enable = true;
+          };
+          jsonls = {
+            enable = true;
+          };
+          kotlin_language_server = {
+            enable = true;
+          };
+          lemminx = {
+            enable = true;
+          };
+          marksman = {
+            enable = true;
+          };
+          taplo = {
+            enable = true;
+          };
+          vacuum = {
+            enable = true;
+          };
+          zls = {
+            enable = true;
+          };
           ts_ls = {
             enable = true;
             autostart = true;
@@ -90,9 +138,6 @@
             enable = true;
           };
           yamlls = {
-            enable = true;
-          };
-          jsonls = {
             enable = true;
           };
           nushell = {
