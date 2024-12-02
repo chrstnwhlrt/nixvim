@@ -19,7 +19,7 @@
   config = lib.mkIf config.completion.enable {
     cmp.enable = lib.mkDefault true;
     copilot.enable = lib.mkDefault true;
-    copilot-chat.enable = lib.mkDefault true;
+    copilot-chat.enable = lib.mkDefault false;
     lspkind.enable = lib.mkDefault true;
     schemastore.enable = lib.mkDefault true;
     avante.enable = lib.mkDefault true;

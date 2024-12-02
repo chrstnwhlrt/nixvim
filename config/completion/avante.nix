@@ -8,6 +8,7 @@
       enable = true;
       settings = {
         provider = "copilot";
+        hints.enabled = false;
       };
     };
   };

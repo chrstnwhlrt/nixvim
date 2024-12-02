@@ -123,7 +123,7 @@
       # More space in the neovim command line for displaying messages
       cmdheight = 1;
 
-      showmode = true;
+      showmode = false;
 
       # Maximum number of items to show in the popup menu (0 means "use available screen space")
       pumheight = 10;
