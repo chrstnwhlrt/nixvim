@@ -5,13 +5,23 @@
 }:
 {
   options = {
-    performance.enable = lib.mkEnableOption "Enable performance module";
+    perf.enable = lib.mkEnableOption "Enable performance module";
   };
-  config = lib.mkIf config.performance.enable {
-    options.performance = {
+  config = lib.mkIf config.perf.enable {
+    performance = {
       byteCompileLua = {
         enable = true;
-        bla = false;
+        configs = true;
+        initLua = true;
+        nvimRuntime = true;
+        plugins = true;
+      };
+      combinePlugins = {
+        enable = false;
+        standalonePlugins = [
+          "nvim-treesitter"
+          "mini"
+        ];
       };
     };
   };
