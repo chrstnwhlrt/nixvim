@@ -10,6 +10,7 @@
     ./copilot-chat.nix
     ./lspkind.nix
     ./schemastore.nix
+    ./avante.nix
   ];
 
   options = {
@@ -21,5 +22,6 @@
     copilot-chat.enable = lib.mkDefault true;
     lspkind.enable = lib.mkDefault true;
     schemastore.enable = lib.mkDefault true;
+    avante.enable = lib.mkDefault true;
   };
 }
