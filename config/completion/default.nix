@@ -6,6 +6,7 @@
 {
   imports = [
     ./cmp.nix
+    ./blink-cmp.nix
     ./copilot.nix
     ./copilot-chat.nix
     ./lspkind.nix
@@ -17,7 +18,8 @@
     completion.enable = lib.mkEnableOption "Enable completion module";
   };
   config = lib.mkIf config.completion.enable {
-    cmp.enable = lib.mkDefault true;
+    cmp.enable = lib.mkDefault false;
+    blink-cmp.enable = lib.mkDefault true;
     copilot.enable = lib.mkDefault true;
     copilot-chat.enable = lib.mkDefault false;
     lspkind.enable = lib.mkDefault true;
