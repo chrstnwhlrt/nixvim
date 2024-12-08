@@ -8,6 +8,9 @@
       dashboard = {
         enable = true;
       };
+      notifier = {
+        enable = true;
+      };
     };
   };
 }
