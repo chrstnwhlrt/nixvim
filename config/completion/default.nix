@@ -18,8 +18,8 @@
     completion.enable = lib.mkEnableOption "Enable completion module";
   };
   config = lib.mkIf config.completion.enable {
-    cmp.enable = lib.mkDefault false;
-    blink-cmp.enable = lib.mkDefault true;
+    cmp.enable = lib.mkDefault true;
+    blink-cmp.enable = lib.mkDefault false;
     copilot.enable = lib.mkDefault true;
     copilot-chat.enable = lib.mkDefault false;
     lspkind.enable = lib.mkDefault true;

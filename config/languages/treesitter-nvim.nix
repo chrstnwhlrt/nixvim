@@ -61,7 +61,7 @@
     };
 
     plugins.treesitter-textobjects = {
-      enable = false;
+      enable = true;
       select = {
         enable = true;
         lookahead = true;
