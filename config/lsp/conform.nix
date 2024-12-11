@@ -14,6 +14,7 @@
           # python = [ "black" ];
           # lua = [ "stylua" ];
           json = [ "prettierd" ];
+          json5 = [ "prettierd" ];
           yaml = [ "prettierd" ];
           markdown = [ "prettierd" ];
           typescriptreact = [ "prettierd" ];
