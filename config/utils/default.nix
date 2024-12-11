@@ -48,7 +48,7 @@
     neocord.enable = lib.mkDefault false;
     neotest.enable = lib.mkDefault false;
     nvim-autopairs.enable = lib.mkDefault true;
-    nvim-colorizer.enable = lib.mkDefault true;
+    colorizer.enable = lib.mkDefault true;
     nvim-surround.enable = lib.mkDefault true;
     nvterm.enable = lib.mkDefault false;
     oil.enable = lib.mkDefault false;

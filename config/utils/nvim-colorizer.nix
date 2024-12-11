@@ -1,11 +1,11 @@
 { lib, config, ... }:
 {
   options = {
-    nvim-colorizer.enable = lib.mkEnableOption "Enable nvim-colorizer module";
+    colorizer.enable = lib.mkEnableOption "Enable nvim-colorizer module";
   };
-  config = lib.mkIf config.nvim-colorizer.enable {
+  config = lib.mkIf config.colorizer.enable {
 
-    plugins.nvim-colorizer = {
+    plugins.colorizer = {
       enable = true;
     };
   };
