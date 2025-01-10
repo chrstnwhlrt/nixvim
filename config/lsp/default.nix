@@ -18,7 +18,7 @@
 
   config = lib.mkIf config.dap.enable {
     conform.enable = lib.mkDefault true;
-    fidget.enable = lib.mkDefault true;
+    fidget.enable = lib.mkDefault false;
     lsp-nvim.enable = lib.mkDefault true;
     lspsaga.enable = lib.mkDefault false;
     trouble.enable = lib.mkDefault true;
