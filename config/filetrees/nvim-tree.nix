@@ -8,18 +8,20 @@
     plugins.nvim-tree = {
       enable = true;
       openOnSetupFile = true;
-      autoReloadOnWrite = true;
-      updateFocusedFile.enable = true;
-      renderer = {
-        rootFolderLabel = false;
+      settings = {
+        auto_reload_on_write = true;
+        update_focused_file.enable = true;
+        renderer = {
+          root_folder_label = false;
+        };
+        view = {
+          side = "right";
+          width = 50;
+        };
+        # actions = {
+        #   changeDir.enable = false;
+        # };
       };
-      view = {
-        side = "right";
-        width = 50;
-      };
-      # actions = {
-      #   changeDir.enable = false;
-      # };
     };
   };
 }

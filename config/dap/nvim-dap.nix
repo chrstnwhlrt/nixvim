@@ -20,23 +20,6 @@
           texthl = "DapLogPoint";
         };
       };
-      extensions = {
-        dap-python = {
-          enable = true;
-        };
-        dap-ui = {
-          enable = true;
-          floating.mappings = {
-            close = [
-              "<ESC>"
-              "q"
-            ];
-          };
-        };
-        dap-virtual-text = {
-          enable = true;
-        };
-      };
       configurations = {
         java = [
           {
@@ -48,6 +31,24 @@
           }
         ];
       };
+    };
+
+    plugins.dap-python = {
+      enable = true;
+    };
+
+    plugins.dap-ui = {
+      enable = true;
+      settings.floating.mappings = {
+        close = [
+          "<ESC>"
+          "q"
+        ];
+      };
+    };
+
+    plugins.dap-virtual-text = {
+      enable = true;
     };
 
     keymaps = [
