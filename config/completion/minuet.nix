@@ -15,7 +15,7 @@
             api_key = "TERM";
             name = "Ollama";
             end_point = "http://localhost:11434/v1/completions";
-            model = "qwen3-coder";
+            model = "qwen2.5-coder:latest";
             optional = {
               max_tokens = 56;
               top_p = 0.9;
