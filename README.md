@@ -72,6 +72,7 @@ This NixVim configuration includes 45+ plugins organized into the following cate
 - **web-devicons** - File type icons support
 
 ### Utilities
+- **avante** - AI-powered coding assistant with Ollama (qwen2.5-coder model)
 - **b64** - Base64 encoding/decoding functionality
 - **comment** - Commenting functionality
 - **comment-box** - Comment box creation and formatting

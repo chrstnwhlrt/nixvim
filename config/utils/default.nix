@@ -5,6 +5,7 @@
 }:
 {
   imports = [
+    ./avante.nix
     ./b64.nix
     ./comment.nix
     ./comment-box.nix
@@ -24,6 +25,7 @@
     utils.enable = lib.mkEnableOption "Enable utils module";
   };
   config = lib.mkIf config.utils.enable {
+    avante.enable = lib.mkDefault true;
     b64.enable = lib.mkDefault true;
     comment.enable = lib.mkDefault true;
     comment-box.enable = lib.mkDefault true;
