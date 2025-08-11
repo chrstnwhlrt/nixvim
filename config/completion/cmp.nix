@@ -69,9 +69,6 @@
               name = "nvim_lsp";
             }
             {
-              name = "minuet";
-            }
-            {
               name = "buffer";
               keyword_length = 5;
             }
