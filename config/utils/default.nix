@@ -14,7 +14,6 @@
     ./nvim-autopairs.nix
     ./nvim-colorizer.nix
     ./nvim-surround.nix
-    ./persistence.nix
     ./plenary.nix
     ./todo-comments.nix
     ./undotree.nix
@@ -34,7 +33,6 @@
     nvim-autopairs.enable = lib.mkDefault true;
     colorizer.enable = lib.mkDefault true;
     nvim-surround.enable = lib.mkDefault true;
-    persistence.enable = lib.mkDefault true;
     plenary.enable = lib.mkDefault true;
     todo-comments.enable = lib.mkDefault true;
     undotree.enable = lib.mkDefault true;

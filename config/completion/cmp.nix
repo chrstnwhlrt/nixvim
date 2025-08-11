@@ -20,9 +20,6 @@
       cmp_luasnip = {
         enable = true;
       }; # snippets
-      copilot-cmp = {
-        enable = true;
-      }; # copilot suggestions
       cmp = {
         enable = true;
         autoEnableSources = false;
@@ -75,7 +72,6 @@
               name = "buffer";
               keyword_length = 5;
             }
-            { name = "copilot"; }
             {
               name = "path";
               keyword_length = 3;
