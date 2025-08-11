@@ -29,7 +29,7 @@ This NixVim configuration includes 45+ plugins organized into the following cate
 - **cmp-cmdline** - Command line completion source
 - **cmp_luasnip** - LuaSnip completion source
 - **lspkind** - LSP symbol kinds with icons
-- **minuet** - AI-powered code completion with Ollama (qwen2.5-coder model)
+- **minuet** - AI-powered code completion with Ollama (qwen3-coder model)
 - **schemastore** - JSON/YAML schema validation
 
 ### DAP (Debug Adapter Protocol)
@@ -72,7 +72,7 @@ This NixVim configuration includes 45+ plugins organized into the following cate
 - **web-devicons** - File type icons support
 
 ### Utilities
-- **avante** - AI-powered coding assistant with Ollama (qwen2.5-coder model)
+- **avante** - AI-powered coding assistant with Ollama (qwen3-coder model)
 - **b64** - Base64 encoding/decoding functionality
 - **comment** - Commenting functionality
 - **comment-box** - Comment box creation and formatting

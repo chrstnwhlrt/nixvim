@@ -11,7 +11,7 @@
         providers = {
           ollama = {
             endpoint = "http://127.0.0.1:11434"; # Note: No /v1 at the end
-            model = "qwen2.5-coder:7b"; # Using qwen3-coder as requested
+            model = "qwen3-coder"; # Using qwen3-coder as requested
             extra_request_body = {
               options = {
                 temperature = 0.75;
