@@ -144,13 +144,13 @@
             type = "button";
             val = "  Restore Session";
             on_press = {
-              __raw = "function() require('persistence').load() end";
+              __raw = "function() vim.cmd[[e .]] end"; # Open file explorer
             };
             opts = {
               keymap = [
                 "n"
                 "s"
-                ":lua require('persistence').load()<cr>"
+                ":e .<cr>" # Open file explorer
                 {
                   noremap = true;
                   silent = true;
