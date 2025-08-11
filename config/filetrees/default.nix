@@ -5,7 +5,6 @@
 }:
 {
   imports = [
-    ./neo-tree.nix
     ./nvim-tree.nix
   ];
 
@@ -13,7 +12,6 @@
     filetrees.enable = lib.mkEnableOption "Enable filetrees module";
   };
   config = lib.mkIf config.filetrees.enable {
-    neo-tree.enable = lib.mkDefault false;
     nvim-tree.enable = lib.mkDefault true;
   };
 }

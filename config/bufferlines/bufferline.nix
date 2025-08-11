@@ -42,24 +42,6 @@
         };
       }
 
-      # {
-      #   mode = "n";
-      #   key = "<S-l>";
-      #   action = "<cmd>BufferLineCycleNext<cr>";
-      #   options = {
-      #     desc = "Cycle to next buffer";
-      #   };
-      # }
-      #
-      # {
-      #   mode = "n";
-      #   key = "<S-h>";
-      #   action = "<cmd>BufferLineCyclePrev<cr>";
-      #   options = {
-      #     desc = "Cycle to previous buffer";
-      #   };
-      # }
-
       {
         mode = "n";
         key = "<leader>bd";
@@ -77,33 +59,6 @@
           desc = "Switch to Other Buffer";
         };
       }
-
-      # {
-      #   mode = "n";
-      #   key = "<leader>`";
-      #   action = "<cmd>e #<cr>";
-      #   options = {
-      #     desc = "Switch to Other Buffer";
-      #   };
-      # }
-
-      # {
-      #   mode = "n";
-      #   key = "<leader>br";
-      #   action = "<cmd>BufferLineCloseRight<cr>";
-      #   options = {
-      #     desc = "Delete buffers to the right";
-      #   };
-      # }
-      #
-      # {
-      #   mode = "n";
-      #   key = "<leader>bl";
-      #   action = "<cmd>BufferLineCloseLeft<cr>";
-      #   options = {
-      #     desc = "Delete buffers to the left";
-      #   };
-      # }
 
       {
         mode = "n";

@@ -39,7 +39,6 @@
               __raw = "function() require('telescope.builtin').find_files() end";
             };
             opts = {
-              # hl = "comment";
               keymap = [
                 "n"
                 "f"
@@ -67,7 +66,6 @@
               __raw = "function() vim.cmd[[ene]] end";
             };
             opts = {
-              # hl = "comment";
               keymap = [
                 "n"
                 "n"
@@ -95,7 +93,6 @@
               __raw = "function() require('telescope.builtin').oldfiles() end";
             };
             opts = {
-              # hl = "comment";
               keymap = [
                 "n"
                 "r"
@@ -123,7 +120,6 @@
               __raw = "function() require('telescope.builtin').live_grep() end";
             };
             opts = {
-              # hl = "comment";
               keymap = [
                 "n"
                 "g"
@@ -151,7 +147,6 @@
               __raw = "function() require('persistence').load() end";
             };
             opts = {
-              # hl = "comment";
               keymap = [
                 "n"
                 "s"
@@ -179,7 +174,6 @@
               __raw = "function() vim.cmd[[qa]] end";
             };
             opts = {
-              # hl = "comment";
               keymap = [
                 "n"
                 "q"

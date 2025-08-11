@@ -146,42 +146,16 @@
       {
         mode = "n";
         key = "<leader>uh";
-        action = ":lua ToggleInlayHints()<cr>";
+        action.__raw = ''
+          function()
+            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+          end
+        '';
         options = {
           silent = true;
           desc = "Toggle Inlay Hints";
         };
       }
-      #
-      # {
-      #   mode = "v";
-      #   key = "J";
-      #   action = ":m '>+1<CR>gv=gv";
-      #   options = {
-      #     silent = true;
-      #     desc = "Move up when line is highlighted";
-      #   };
-      # }
-      #
-      # {
-      #   mode = "v";
-      #   key = "K";
-      #   action = ":m '<-2<CR>gv=gv";
-      #   options = {
-      #     silent = true;
-      #     desc = "Move down when line is highlighted";
-      #   };
-      # }
-      #
-      # {
-      #   mode = "n";
-      #   key = "J";
-      #   action = "mzJ`z";
-      #   options = {
-      #     silent = true;
-      #     desc = "Allow cursor to stay in the same place after appeding to current line";
-      #   };
-      # }
 
       {
         mode = "v";
@@ -222,49 +196,6 @@
         };
       }
 
-      # # Remap for dealing with word wrap and adding jumps to the jumplist.
-      # {
-      #   mode = "n";
-      #   key = "j";
-      #   action.__raw = "
-      #   [[(v:count > 1 ? 'm`' . v:count : 'g') . 'j']]
-      # ";
-      #   options = {
-      #     expr = true;
-      #     desc = "Remap for dealing with word wrap and adding jumps to the jumplist.";
-      #   };
-      # }
-      #
-      # {
-      #   mode = "n";
-      #   key = "k";
-      #   action.__raw = "
-      #   [[(v:count > 1 ? 'm`' . v:count : 'g') . 'k']]
-      # ";
-      #   options = {
-      #     expr = true;
-      #     desc = "Remap for dealing with word wrap and adding jumps to the jumplist.";
-      #   };
-      # }
-      #
-      # {
-      #   mode = "n";
-      #   key = "n";
-      #   action = "nzzzv";
-      #   options = {
-      #     desc = "Allow search terms to stay in the middle";
-      #   };
-      # }
-
-      # {
-      #   mode = "n";
-      #   key = "N";
-      #   action = "Nzzzv";
-      #   options = {
-      #     desc = "Allow search terms to stay in the middle";
-      #   };
-      # }
-      #
 
       # Paste stuff without saving the deleted word into the buffer
       {
@@ -314,21 +245,6 @@
         };
       }
 
-      # <C-c> instead of pressing esc just because
-      # {
-      #   mode = "i";
-      #   key = "<C-c>";
-      #   action = "<Esc>";
-      # }
-
-      # {
-      #   mode = "n";
-      #   key = "<C-f>";
-      #   action = "!tmux new tmux-sessionizer<CR>";
-      #   options = {
-      #     desc = "Switch between projects";
-      #   };
-      # }
 
       # Set highlight on search, but clear on pressing <Esc> in normal mode
       {

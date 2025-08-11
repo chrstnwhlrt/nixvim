@@ -10,9 +10,6 @@
         notify_on_error = true;
         lsp_format = "fallback";
         formatters_by_ft = {
-          # java = [ "google-java-format" ];
-          # python = [ "black" ];
-          # lua = [ "stylua" ];
           json = [ "prettier" ];
           json5 = [ "prettier" ];
           yaml = [ "prettier" ];

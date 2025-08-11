@@ -18,9 +18,6 @@
           side = "right";
           width = 50;
         };
-        # actions = {
-        #   changeDir.enable = false;
-        # };
       };
     };
   };

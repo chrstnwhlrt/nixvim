@@ -95,9 +95,6 @@
       showcmd = false;
       ruler = false;
 
-      # Place a column line
-      # colorcolumn = "80";
-
       # Reduce which-key timeout 
       timeoutlen = 200;
       title = true;
@@ -116,10 +113,6 @@
       #   "sm:block-blinkwait175-blinkoff150-blinkon175" # Showmatch: block cursor with specific blinking settings
       # ];
 
-      # Enable chars list
-      # list = true; # Show invisible characters (tabs, eol, ...)
-      # listchars = "eol:↲,tab:|->,lead:·,space: ,trail:•,extends:→,precedes:←,nbsp:␣";
-
       # More space in the neovim command line for displaying messages
       cmdheight = 1;
 
@@ -135,9 +128,5 @@
 
       inccommand = "split"; # (https://neovim.io/doc/user/options.html#'inccommand')
     };
-
-    # globals = {
-    #   markdown_fenced_languages = "['html', 'python', 'bash=sh', 'javascript', 'typescript', 'zsh=sh', 'yaml', 'json', 'rust', 'typescriptreact', 'css']";
-    # };
   };
 }

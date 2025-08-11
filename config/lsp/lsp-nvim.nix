@@ -51,9 +51,6 @@
           cssls = {
             enable = true;
           };
-          # cssmodules_ls = {
-          #   enable = true;
-          # };
           dockerls = {
             enable = true;
           };
@@ -63,9 +60,6 @@
           html = {
             enable = true;
           };
-          # intelephense = {
-          #   enable = true;
-          # };
           jdtls = {
             enable = true;
           };
@@ -152,12 +146,6 @@
               check = {
                 command = "clippy";
               };
-              # inlayHints = {
-              #   enable = true;
-              #   showParameterNames = true;
-              #   parameterHintsPrefix = "<- ";
-              #   otherHintsPrefix = "=> ";
-              # };
               procMacro = {
                 enable = true;
               };
