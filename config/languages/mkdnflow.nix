@@ -6,131 +6,40 @@
   config = lib.mkIf config.mkdnflow.enable {
     plugins.mkdnflow = {
       enable = true;
-      mappings = {
+      settings.mappings = {
           MkdnCreateLink = false;
-          MkdnCreateLinkFromClipboard = {
-            key = "<leader>p";
-            modes = [
-              "n"
-              "v"
-            ];
-          };
-          MkdnDecreaseHeading = {
-            key = "-";
-            modes = "n";
-          };
-          MkdnDestroyLink = {
-            key = "<M-CR>";
-            modes = "n";
-          };
-          MkdnEnter = {
-            key = "<CR>";
-            modes = [
-              "n"
-              "v"
-              "i"
-            ];
-          };
+          MkdnCreateLinkFromClipboard = [ [ "n" "v" ] "<leader>p" ];
+          MkdnDecreaseHeading = [ "n" "-" ];
+          MkdnDestroyLink = [ "n" "<M-CR>" ];
+          MkdnEnter = [ [ "n" "v" "i" ] "<CR>" ];
           MkdnExtendList = false;
-          MkdnFoldSection = {
-            key = "<leader>f";
-            modes = "n";
-          };
+          MkdnFoldSection = [ "n" "<leader>f" ];
           MkdnFollowLink = false;
-          MkdnGoBack = {
-            key = "<BS>";
-            modes = "n";
-          };
-          MkdnGoForward = {
-            key = "<Del>";
-            modes = "n";
-          };
-          MkdnIncreaseHeading = {
-            key = "+";
-            modes = "n";
-          };
-          MkdnMoveSource = {
-            key = "<F2>";
-            modes = "n";
-          };
-          MkdnNewListItemAboveInsert = {
-            key = "O";
-            modes = "n";
-          };
-          MkdnNewListItemBelowInsert = {
-            key = "o";
-            modes = "n";
-          };
-          MkdnNextHeading = {
-            key = "]]";
-            modes = "n";
-          };
-          MkdnNextLink = {
-            key = "<Tab>";
-            modes = "n";
-          };
-          MkdnPrevHeading = {
-            key = "[[";
-            modes = "n";
-          };
-          MkdnPrevLink = {
-            key = "<S-Tab>";
-            modes = "n";
-          };
+          MkdnGoBack = [ "n" "<BS>" ];
+          MkdnGoForward = [ "n" "<Del>" ];
+          MkdnIncreaseHeading = [ "n" "+" ];
+          MkdnMoveSource = [ "n" "<F2>" ];
+          MkdnNewListItemAboveInsert = [ "n" "O" ];
+          MkdnNewListItemBelowInsert = [ "n" "o" ];
+          MkdnNextHeading = [ "n" "]]" ];
+          MkdnNextLink = [ "n" "<Tab>" ];
+          MkdnPrevHeading = [ "n" "[[" ];
+          MkdnPrevLink = [ "n" "<S-Tab>" ];
           MkdnSTab = false;
           MkdnTab = false;
-          MkdnTableNewColAfter = {
-            key = "<leader>ic";
-            modes = "n";
-          };
-          MkdnTableNewColBefore = {
-            key = "<leader>iC";
-            modes = "n";
-          };
-          MkdnTableNewRowAbove = {
-            key = "<leader>iR";
-            modes = "n";
-          };
-          MkdnTableNewRowBelow = {
-            key = "<leader>ir";
-            modes = "n";
-          };
-          MkdnTableNextCell = {
-            key = "<Tab>";
-            modes = "i";
-          };
+          MkdnTableNewColAfter = [ "n" "<leader>ic" ];
+          MkdnTableNewColBefore = [ "n" "<leader>iC" ];
+          MkdnTableNewRowAbove = [ "n" "<leader>iR" ];
+          MkdnTableNewRowBelow = [ "n" "<leader>ir" ];
+          MkdnTableNextCell = [ "i" "<Tab>" ];
           MkdnTableNextRow = false;
-          MkdnTablePrevCell = {
-            key = "<S-Tab>";
-            modes = "i";
-          };
-          MkdnTablePrevRow = {
-            key = "<M-CR>";
-            modes = "i";
-          };
-          MkdnToggleToDo = {
-            key = "<C-Space>";
-            modes = [
-              "n"
-              "v"
-            ];
-          };
-          MkdnUnfoldSection = {
-            key = "<leader>F";
-            modes = "n";
-          };
-          MkdnUpdateNumbering = {
-            key = "<leader>nn";
-            modes = "n";
-          };
-          MkdnYankAnchorLink = {
-            key = "ya";
-            modes = "n";
-          };
-          MkdnYankFileAnchorLink = {
-            key = "yfa";
-            modes = "n";
-          };
+          MkdnTablePrevCell = [ "i" "<S-Tab>" ];
+          MkdnTablePrevRow = [ "i" "<M-CR>" ];
+          MkdnToggleToDo = [ [ "n" "v" ] "<C-Space>" ];
+          MkdnUnfoldSection = [ "n" "<leader>F" ];
+          MkdnUpdateNumbering = [ "n" "<leader>nn" ];
+          MkdnYankAnchorLink = [ "n" "ya" ];
+          MkdnYankFileAnchorLink = [ "n" "yfa" ];
         };
     };
   };

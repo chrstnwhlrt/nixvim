@@ -198,12 +198,12 @@
               desc = "Line Diagnostics";
             };
             "[d" = {
-              action = "goto_next";
-              desc = "Next Diagnostic";
-            };
-            "]d" = {
               action = "goto_prev";
               desc = "Previous Diagnostic";
+            };
+            "]d" = {
+              action = "goto_next";
+              desc = "Next Diagnostic";
             };
           };
         };

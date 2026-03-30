@@ -6,6 +6,7 @@
 {
   imports = [
     ./tokyonight.nix
+    ./base16-noctalia.nix
   ];
 
   options = {
@@ -13,5 +14,6 @@
   };
   config = lib.mkIf config.colorschemes.enable {
     tokyonight.enable = lib.mkDefault true;
+    base16-noctalia.enable = lib.mkDefault true;
   };
 }

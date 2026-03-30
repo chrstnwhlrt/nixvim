@@ -6,8 +6,10 @@
   config = lib.mkIf config.diffview.enable {
     plugins.diffview = {
       enable = true;
-      hgCmd = null;
-      gitCmd = [ "git" ];
+      settings = {
+        hg_cmd = null;
+        git_cmd = [ "git" ];
+      };
     };
   };
 }
