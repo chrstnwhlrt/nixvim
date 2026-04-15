@@ -155,18 +155,21 @@
         }
       end
 
+      local function apply_fallback()
+        return pcall(function()
+          require('base16-colorscheme').setup(fallback_palette)
+        end)
+      end
+
       -- Single source of truth for applying the theme. Called on initial
       -- load and on every SIGUSR1 (wallpaper change). Uses the generated
-      -- matugen palette when available, falls back to the hardcoded one.
+      -- matugen palette when available, falls back to the hardcoded one
+      -- if matugen is missing OR its setup fails (e.g. corrupt template).
       local function apply()
         local matugen = load_matugen()
-        local setup_ok
-        if matugen then
-          setup_ok = pcall(matugen.setup)
-        else
-          setup_ok = pcall(function()
-            require('base16-colorscheme').setup(fallback_palette)
-          end)
+        local setup_ok = matugen ~= nil and pcall(matugen.setup)
+        if not setup_ok then
+          setup_ok = apply_fallback()
         end
         if not setup_ok then return false end
 
@@ -179,12 +182,12 @@
           vim.api.nvim_set_hl(0, name, { link = target })
         end
 
-        local ll_ok, lualine = pcall(require, 'lualine')
-        if ll_ok then
+        pcall(function()
+          local lualine = require('lualine')
           local cfg = lualine.get_config()
           cfg.options.theme = build_lualine_theme()
           lualine.setup(cfg)
-        end
+        end)
         return true
       end
 
