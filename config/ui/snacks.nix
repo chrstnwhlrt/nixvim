@@ -118,10 +118,10 @@
                 and vim.b[buf].snacks_indent ~= false
                 and vim.bo[buf].buftype == ""
                 and not vim.tbl_contains({
-                  "help", "alpha", "dashboard", "snacks_dashboard",
-                  "neo-tree", "NvimTree", "Trouble", "trouble",
+                  "help", "dashboard", "snacks_dashboard",
+                  "NvimTree", "Trouble", "trouble",
                   "lazy", "mason", "notify",
-                  "toggleterm", "lazyterm", "nvterm",
+                  "toggleterm",
                 }, vim.bo[buf].filetype)
             end
           '';

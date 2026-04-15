@@ -63,11 +63,6 @@
       -- Linking them to base16 slots so each plugin follows the dynamic
       -- palette instead of its own hardcoded defaults.
       local plugin_links = {
-        -- Alpha dashboard
-        AlphaHeader                   = 'Function',
-        AlphaButtons                  = 'Type',
-        AlphaShortcut                 = 'Keyword',
-        AlphaFooter                   = 'Comment',
         -- BufferLine
         BufferLineFill                = 'TabLineFill',
         BufferLineBackground          = 'TabLine',
