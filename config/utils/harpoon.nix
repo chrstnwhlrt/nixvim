@@ -6,7 +6,6 @@
   config = lib.mkIf config.harpoon.enable {
     plugins.harpoon = {
       enable = true;
-      enableTelescope = true;
     };
     
     keymaps = [

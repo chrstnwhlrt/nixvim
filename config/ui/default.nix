@@ -8,6 +8,7 @@
     ./barbecue.nix
     ./fidget.nix
     ./snacks.nix
+    ./snacks-picker-keys.nix
     ./web-devicons.nix
   ];
 
@@ -18,6 +19,7 @@
     barbecue.enable = lib.mkDefault true;
     fidget.enable = lib.mkDefault true;
     snacks.enable = lib.mkDefault true;
+    snacks-picker-keys.enable = lib.mkDefault true;
     web-devicons.enable = lib.mkDefault true;
   };
 }

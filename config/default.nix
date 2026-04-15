@@ -14,7 +14,6 @@
     ./sets
     ./snippets
     ./statusline
-    ./telescope
     ./ui
     ./utils
   ];
@@ -31,7 +30,6 @@
   sets.enable = lib.mkDefault true;
   snippets.enable = lib.mkDefault true;
   statusline.enable = lib.mkDefault true;
-  telescope.enable = lib.mkDefault true;
   ui.enable = lib.mkDefault true;
   utils.enable = lib.mkDefault true;
 }
