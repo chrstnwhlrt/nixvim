@@ -7,87 +7,103 @@
     plugins.snacks = {
       enable = true;
       settings = {
+        # Startup dashboard (replaces alpha.nvim).
         dashboard = {
-          enabled = false;
+          enabled = true;
           preset = {
+            header = ''
+               ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗
+               ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║
+               ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║
+               ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║
+               ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║
+               ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝'';
             keys = [
               {
-                icon = " ";
+                icon = " ";
                 key = "f";
                 desc = "Find File";
-                action = "<leader>ff";
+                action.__raw = "function() Snacks.picker.files() end";
               }
               {
-                icon = " ";
+                icon = " ";
                 key = "n";
                 desc = "New File";
                 action = ":ene | startinsert";
               }
               {
-                icon = " ";
-                key = "/";
-                desc = "Find Text";
-                action = "<leader>fr";
-              }
-              {
-                icon = " ";
+                icon = "󰈚 ";
                 key = "r";
                 desc = "Recent Files";
-                action = "<leader>fg";
+                action.__raw = "function() Snacks.picker.recent() end";
               }
               {
-                icon = "";
-                key = "o";
-                desc = "LazyGit";
-                action = "<leader>gg";
+                icon = "󰈭 ";
+                key = "g";
+                desc = "Find Word";
+                action.__raw = "function() Snacks.picker.grep() end";
               }
               {
-                icon = " ";
+                icon = " ";
+                key = "s";
+                desc = "Browse CWD";
+                action = ":e .";
+              }
+              {
+                icon = " ";
                 key = "q";
-                desc = "Quit";
+                desc = "Quit Neovim";
                 action = ":qa";
               }
             ];
           };
           sections = [
+            { section = "header"; }
+            { section = "keys"; gap = 1; padding = 1; }
             {
-              icon = " ";
               pane = 2;
-              title = "Keymaps";
-              section = "keys";
-              padding = 1;
-              indent = 3;
-            }
-            {
-              icon = " ";
-              pane = 2;
+              icon = " ";
               title = "Recent Files";
               section = "recent_files";
+              indent = 2;
               padding = 1;
-              indent = 3;
             }
             {
-              icon = " ";
               pane = 2;
+              icon = " ";
               title = "Projects";
               section = "projects";
+              indent = 2;
               padding = 1;
-              indent = 3;
             }
+            { section = "startup"; }
           ];
         };
-        notify.enabled = true;
+
+        # Notification stack (replaces noice.nvim + dressing.nvim input/select).
         notifier = {
           enabled = true;
           timeout = 3000;
         };
-        quickfile = {
-          enabled = true;
-        };
+        notify.enabled = true;
+
+        # vim.ui.input/select are patched by dressing.nvim, which is pulled
+        # in as a transitive dep of avante.nvim and cannot trivially be
+        # excluded. Disabling snacks.input here avoids a conflict.
+        input.enabled = false;
+
+        # Unified picker: backs the dashboard, vim.ui.select (when dressing
+        # delegates), and the Stage 3 keymap migration.
+        picker.enabled = true;
+
+        # Misc QoL modules.
+        quickfile.enabled = true;
         words = {
-          debounce = 100;
           enabled = true;
+          debounce = 100;
         };
+
+        # Indent guides (replaces indent-blankline.nvim).
         indent = {
           enabled = true;
           char = "│";
