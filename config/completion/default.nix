@@ -5,8 +5,7 @@
 }:
 {
   imports = [
-    ./cmp.nix
-    ./lspkind.nix
+    ./blink-cmp.nix
     ./minuet.nix
     ./schemastore.nix
   ];
@@ -15,8 +14,7 @@
     completion.enable = lib.mkEnableOption "Enable completion module";
   };
   config = lib.mkIf config.completion.enable {
-    cmp.enable = lib.mkDefault true;
-    lspkind.enable = lib.mkDefault true;
+    blink-cmp.enable = lib.mkDefault true;
     minuet.enable = lib.mkDefault true;
     schemastore.enable = lib.mkDefault true;
   };

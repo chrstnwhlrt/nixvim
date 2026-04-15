@@ -7,7 +7,6 @@
   imports = [
     ./avante.nix
     ./b64.nix
-    ./comment.nix
     ./comment-box.nix
     ./harpoon.nix
     ./markdown-preview.nix
@@ -27,7 +26,6 @@
   config = lib.mkIf config.utils.enable {
     avante.enable = lib.mkDefault true;
     b64.enable = lib.mkDefault true;
-    comment.enable = lib.mkDefault true;
     comment-box.enable = lib.mkDefault true;
     harpoon.enable = lib.mkDefault true;
     markdown-preview.enable = lib.mkDefault true;

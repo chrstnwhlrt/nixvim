@@ -88,6 +88,28 @@
           debounce = 100;
           enabled = true;
         };
+        indent = {
+          enabled = true;
+          char = "│";
+          scope = {
+            enabled = true;
+            char = "│";
+          };
+          chunk.enabled = false;
+          filter.__raw = ''
+            function(buf)
+              return vim.g.snacks_indent ~= false
+                and vim.b[buf].snacks_indent ~= false
+                and vim.bo[buf].buftype == ""
+                and not vim.tbl_contains({
+                  "help", "alpha", "dashboard", "snacks_dashboard",
+                  "neo-tree", "NvimTree", "Trouble", "trouble",
+                  "lazy", "mason", "notify",
+                  "toggleterm", "lazyterm", "nvterm",
+                }, vim.bo[buf].filetype)
+            end
+          '';
+        };
       };
     };
   };
