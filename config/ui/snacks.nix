@@ -87,13 +87,13 @@
         };
         notify.enabled = true;
 
-        # vim.ui.input/select are patched by dressing.nvim, which is pulled
-        # in as a transitive dep of avante.nvim and cannot trivially be
-        # excluded. Disabling snacks.input here avoids a conflict.
-        input.enabled = false;
+        # vim.ui.input replacement. dressing.nvim is pulled in as a
+        # transitive dep of avante.nvim but is neutralized below in
+        # extraConfigLuaPost so snacks owns the UI hooks.
+        input.enabled = true;
 
-        # Unified picker: backs the dashboard, vim.ui.select (when dressing
-        # delegates), and the Stage 3 keymap migration.
+        # Unified picker: backs the dashboard, vim.ui.select, and the
+        # keymap migration.
         picker.enabled = true;
 
         # Misc QoL modules.
@@ -128,5 +128,23 @@
         };
       };
     };
+
+    # dressing.nvim is pulled in as a transitive dep of avante.nvim and
+    # auto-patches vim.ui.input/select at plugin-load time. Re-point the
+    # hooks at snacks after dressing has done its thing.
+    extraConfigLuaPost = ''
+      pcall(function()
+        require('dressing').setup({
+          input = { enabled = false },
+          select = { enabled = false },
+        })
+      end)
+      vim.ui.input = function(opts, on_confirm)
+        return Snacks.input(opts, on_confirm)
+      end
+      vim.ui.select = function(items, opts, on_choice)
+        return Snacks.picker.select(items, opts, on_choice)
+      end
+    '';
   };
 }

@@ -36,7 +36,7 @@ Minuet AI is configured for manual triggering to reduce system load:
 | `<leader>ar` | Normal | Refresh AI response |
 | `<leader>af` | Normal | Focus AI sidebar |
 
-### Code Completion (cmp)
+### Code Completion (blink.cmp)
 | Key | Mode | Description |
 |-----|------|-------------|
 | `<C-j>` / `<C-n>` | Insert | Select next completion item |
@@ -73,7 +73,7 @@ Minuet AI is configured for manual triggering to reduce system load:
 | `<leader>bp` | Normal | Toggle pin |
 | `<leader>bP` | Normal | Delete non-pinned buffers |
 
-### File Navigation (Telescope)
+### File Navigation (snacks.picker)
 | Key | Mode | Description |
 |-----|------|-------------|
 | `<leader>ff` | Normal | Find files |
@@ -85,7 +85,7 @@ Minuet AI is configured for manual triggering to reduce system load:
 | `<leader>gc` | Normal | Git commits |
 | `<leader>gs` | Normal | Git status |
 
-### Search (Telescope)
+### Search (snacks.picker)
 | Key | Mode | Description |
 |-----|------|-------------|
 | `<leader>sa` | Normal | Auto commands |
@@ -300,7 +300,7 @@ Minuet AI is configured for manual triggering to reduce system load:
 
 ## Plugins
 
-This NixVim configuration includes 45+ plugins organized into the following categories:
+Plugin set after the snacks-centric refactor:
 
 ### Bufferlines
 - **bufferline** - Buffer line display with tabs and diagnostics integration
@@ -309,67 +309,46 @@ This NixVim configuration includes 45+ plugins organized into the following cate
 - **base16-noctalia** - Dynamic base16 theming driven by noctalia's matugen palette; hot-reloads on wallpaper change via SIGUSR1. Falls back to a hardcoded warm palette when `~/.config/nvim/lua/matugen.lua` is unavailable. Terminal transparency preserved.
 
 ### Completion
-- **cmp** - Main completion engine with multiple sources
-- **cmp-nvim-lsp** - LSP completion source
-- **cmp-buffer** - Buffer completion source
-- **cmp-path** - File path completion source
-- **cmp-cmdline** - Command line completion source
-- **cmp_luasnip** - LuaSnip completion source
-- **lspkind** - LSP symbol kinds with icons
-- **minuet** - AI-powered code completion with Ollama (qwen3-coder model)
-- **schemastore** - JSON/YAML schema validation
+- **blink.cmp** - Rust-backed completion engine (replaces nvim-cmp). Sources: LSP, path, luasnip, buffer. Built-in fuzzy matcher, cmdline completion, ghost text, kind icons.
+- **luasnip** - Snippet engine (used via `snippets.preset = "luasnip"` in blink).
+- **minuet** - Manual-trigger AI completion via Ollama (qwen2.5-coder:7b).
+- **schemastore** - JSON/YAML schema validation.
 
 ### DAP (Debug Adapter Protocol)
-- **dap** - Debug adapter protocol support with breakpoint signs
+- **dap** - Debug adapter protocol with breakpoint signs + dap-ui + dap-virtual-text.
 
 ### File Trees
-- **nvim-tree** - File explorer with auto-reload and focus features
+- **nvim-tree** - File explorer, auto-reload, focused-file tracking.
 
 ### Git Integration
-- **diffview** - Git diff viewer with customizable commands
-- **gitsigns** - Git status signs in the gutter
+- **gitsigns** - Git status signs in the gutter.
+- **diffview** - Git diff viewer.
 
 ### Languages
-- **mkdnflow** - Markdown workflow tools with link creation and navigation
-- **treesitter** - Syntax highlighting and parsing with extensive language support
+- **treesitter** - Parsing/highlighting for 24+ languages, autopair-aware folds.
+- **mkdnflow** - Markdown workflow (links, headings, tables).
 
-### LSP (Language Server Protocol)
-- **conform-nvim** - Code formatting with multiple formatter support
-- **lsp** - Core LSP configuration with 20+ language servers
-- **trouble** - Diagnostics and quickfix list enhancement
+### LSP
+- **lsp** - 20+ language servers via vim.lsp.config-backed nixvim wrapper.
+- **conform-nvim** - Formatters (prettier, nixfmt, rustfmt).
+- **trouble** - Diagnostics/quickfix panel.
+- **fidget** - LSP progress toast notifications.
 
-### Snippets
-- **luasnip** - Snippet engine with autosnippets support
+### UI (snacks-centric)
+- **snacks** - Unified QoL bundle: `dashboard`, `picker`, `indent`, `notifier`, `input`, `quickfile`, `words`. Replaces alpha.nvim, telescope, indent-blankline, noice, dressing.
+- **barbecue** - Winbar breadcrumb navigation.
+- **web-devicons** - File type icons.
+- **dressing.nvim** - Present as transitive dep of avante.nvim; its auto-patch of `vim.ui.input/select` is explicitly overridden in favor of snacks in `config/ui/snacks.nix`.
 
 ### Statusline
-- **lualine** - Statusline with extensive configuration and theming
-
-### Telescope
-- **telescope** - Fuzzy finder with fzf-native extension
-- **telescope-live-grep-args** - Enhanced live grep functionality
-
-### UI Enhancements
-- **alpha** - Start screen with custom layout
-- **barbecue** - Breadcrumb navigation in winbar
-- **dressing-nvim** - Enhanced vim.ui.select and vim.ui.input interfaces
-- **indent-blankline** - Indentation guides with scope highlighting
-- **noice** - UI enhancement for messages, cmdline, and popupmenu
-- **nui-nvim** - UI component library
-- **snacks** - UI utility collection with dashboard features
-- **web-devicons** - File type icons support
+- **lualine** - Statusline with matugen-derived theme.
 
 ### Utilities
-- **avante** - AI-powered coding assistant with Ollama (qwen3-coder model)
-- **b64** - Base64 encoding/decoding functionality
-- **comment** - Commenting functionality
-- **comment-box** - Comment box creation and formatting
-- **colorizer** - Color code highlighting
-- **harpoon** - File navigation and management with telescope integration
-- **markdown-preview** - Markdown live preview
-- **mini** - Mini.nvim modules collection
-- **nvim-autopairs** - Automatic bracket/quote pairing
-- **nvim-surround** - Text surrounding operations
-- **plenary-nvim** - Lua utility library (dependency for other plugins)
-- **todo-comments** - TODO/FIXME/HACK comment highlighting
-- **undotree** - Undo tree visualization with auto-diff
-- **which-key** - Keybinding help and discovery
+- **avante** - AI coding assistant via Ollama (qwen2.5-coder:14b), sidebar UX.
+- **harpoon** - Quick file pinning/switching.
+- **mini.nvim** - `mini.comment` (ts-context-aware), `mini.cursorword`, `mini.ai` text objects.
+- **comment-box** - Boxed comment decorations.
+- **nvim-autopairs**, **nvim-surround** - Brackets/surround operations.
+- **todo-comments**, **undotree**, **colorizer**, **markdown-preview**, **b64** - Specialized utilities.
+- **which-key** - Discoverable keybinding help.
+- **plenary** - Shared Lua utilities (transitive dep of multiple plugins).
