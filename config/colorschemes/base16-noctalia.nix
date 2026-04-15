@@ -59,9 +59,9 @@
         return nil
       end
 
-      -- Plugin-specific highlight groups that tokyonight sets directly and
-      -- base16 does not know about. Linking them to base16 slots lets them
-      -- follow the dynamic palette.
+      -- Plugin-specific highlight groups that base16 does not define.
+      -- Linking them to base16 slots so each plugin follows the dynamic
+      -- palette instead of its own hardcoded defaults.
       local plugin_links = {
         -- Alpha dashboard
         AlphaHeader                   = 'Function',
@@ -107,8 +107,8 @@
       }
 
       -- Surfaces that should stay transparent so the terminal background
-      -- shows through (tokyonight does this via transparent=true; base16
-      -- paints a solid base00 over everything).
+      -- shows through. base16 paints a solid base00 on these by default;
+      -- we clear bg per-surface instead (popups/statusline stay solid).
       local transparent_groups = {
         'Normal', 'NormalNC', 'EndOfBuffer',
         'SignColumn', 'LineNr', 'CursorLineNr',
@@ -122,8 +122,7 @@
 
       -- Derive a lualine theme from the live base16 highlights so mode
       -- badges and sections match the matugen palette. lualine's
-      -- theme="auto" would otherwise resolve to tokyonight via
-      -- vim.g.colors_name.
+      -- theme="auto" cannot resolve our custom base16 scheme on its own.
       local function build_lualine_theme()
         local bg      = hex('Normal',          'bg', '#181211')
         local fg      = hex('Normal',          'fg', '#ede0de')

@@ -306,7 +306,7 @@ This NixVim configuration includes 45+ plugins organized into the following cate
 - **bufferline** - Buffer line display with tabs and diagnostics integration
 
 ### Colorschemes
-- **tokyonight** - Tokyo Night colorscheme with transparent background
+- **base16-noctalia** - Dynamic base16 theming driven by noctalia's matugen palette; hot-reloads on wallpaper change via SIGUSR1. Falls back to a hardcoded warm palette when `~/.config/nvim/lua/matugen.lua` is unavailable. Terminal transparency preserved.
 
 ### Completion
 - **cmp** - Main completion engine with multiple sources
