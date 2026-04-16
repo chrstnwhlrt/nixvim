@@ -24,8 +24,8 @@
   dap.enable = lib.mkDefault true;
   filetrees.enable = lib.mkDefault true;
   git.enable = lib.mkDefault true;
-  keys.enable = true;
-  languages.enable = true;
+  keys.enable = lib.mkDefault true;
+  languages.enable = lib.mkDefault true;
   lsp.enable = lib.mkDefault true;
   sets.enable = lib.mkDefault true;
   snippets.enable = lib.mkDefault true;

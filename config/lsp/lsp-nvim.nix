@@ -6,7 +6,7 @@
   config = lib.mkIf config.lsp-nvim.enable {
     plugins = {
       lsp-format = {
-        enable = false; # Enable it if you want lsp-format integration for none-ls
+        enable = false; # Disabled: formatting is handled by conform-nvim.
       };
       lsp = {
         enable = true;
