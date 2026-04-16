@@ -32,15 +32,26 @@ in
   };
   config = lib.mkIf config.treesitter-nvim.enable {
     # Parsers + queries via Nix. The archived Lua plugin code is stripped.
-    extraPlugins = [ treesitterRuntime textobjectsQueries ];
-
-    # Supplementary treesitter tooling with own, actively-maintained repos.
-    plugins = {
-      treesitter-context.enable = true;
-      ts-autotag.enable = true;
-    };
+    # treesitter-context and nvim-ts-autotag are bundled here as raw
+    # extraPlugins rather than via plugins.*.enable so that nixvim's
+    # "needs plugins.treesitter" dependency check stays quiet — we
+    # supply treesitter ourselves (natively, not through the wrapper).
+    extraPlugins = with pkgs.vimPlugins; [
+      treesitterRuntime
+      textobjectsQueries
+      nvim-treesitter-context
+      nvim-ts-autotag
+    ];
 
     extraConfigLuaPost = ''
+      -- ======================================================================
+      -- Supplementary plugins (own, actively-maintained repos; set up
+      -- manually since they were pulled in via extraPlugins to avoid
+      -- nixvim's plugins.treesitter dependency warning).
+      -- ======================================================================
+      pcall(function() require('treesitter-context').setup({}) end)
+      pcall(function() require('nvim-ts-autotag').setup({}) end)
+
       -- ======================================================================
       -- Native treesitter activation (replaces nvim-treesitter setup)
       -- ======================================================================

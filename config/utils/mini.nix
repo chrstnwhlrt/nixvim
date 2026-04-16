@@ -6,6 +6,11 @@
   config = lib.mkIf config.mini.enable {
     plugins.mini = {
       enable = true;
+      # nixvim's built-in devicons shim: declares to nixvim's eval that
+      # mini.icons is the icon provider and auto-installs the
+      # package.preload hook so every require("nvim-web-devicons") hits
+      # mini.icons instead. Replaces the manual preload we used before.
+      mockDevIcons = true;
       # mini.ai is intentionally NOT listed here. nixvim's mini wrapper
       # does not let us pass __raw Lua into custom_textobjects, so we
       # configure mini.ai ourselves via extraConfigLuaPost below. Only
@@ -20,18 +25,6 @@
         icons = { };
       };
     };
-
-    # Redirect every `require("nvim-web-devicons")` to mini.icons BEFORE
-    # any plugin setup can ask for it. package.preload fires once, on the
-    # first require(), which is almost always done lazily by UI plugins —
-    # but installing the hook in extraConfigLuaPre guarantees we never
-    # lose the race.
-    extraConfigLuaPre = ''
-      package.preload["nvim-web-devicons"] = function()
-        require("mini.icons").mock_nvim_web_devicons()
-        return package.loaded["nvim-web-devicons"]
-      end
-    '';
 
     # mini.ai setup with treesitter-based textobjects (replaces
     # nvim-treesitter-textobjects). Mirrors the original keymap surface:
