@@ -113,8 +113,9 @@
       #   "sm:block-blinkwait175-blinkoff150-blinkon175" # Showmatch: block cursor with specific blinking settings
       # ];
 
-      # More space in the neovim command line for displaying messages
-      cmdheight = 1;
+      # 0 = hide the cmdline by default; it only appears while a `:`,
+      # `/` or `?` is being typed. Frees one screen row.
+      cmdheight = 0;
 
       showmode = false;
 
