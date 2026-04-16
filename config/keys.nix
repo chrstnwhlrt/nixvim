@@ -228,10 +228,10 @@
       {
         mode = "n";
         key = "<leader>e";
-        action = "<cmd>NvimTreeToggle<cr>";
+        action.__raw = "function() Snacks.explorer() end";
         options = {
           silent = true;
-          desc = "Open nvim-tree";
+          desc = "Toggle file explorer (snacks.explorer)";
         };
       }
     ];

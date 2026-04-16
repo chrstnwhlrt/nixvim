@@ -73,18 +73,6 @@
         BufferLineSeparatorVisible    = 'TabLineFill',
         BufferLineIndicatorSelected   = 'Function',
         BufferLineModifiedSelected    = 'String',
-        -- NvimTree
-        NvimTreeNormal                = 'Normal',
-        NvimTreeNormalNC              = 'NormalNC',
-        NvimTreeEndOfBuffer           = 'EndOfBuffer',
-        NvimTreeFolderName            = 'Directory',
-        NvimTreeOpenedFolderName      = 'Directory',
-        NvimTreeEmptyFolderName       = 'Directory',
-        NvimTreeRootFolder            = 'Function',
-        NvimTreeIndentMarker          = 'Comment',
-        NvimTreeGitDirty              = 'DiagnosticWarn',
-        NvimTreeGitNew                = 'DiagnosticOk',
-        NvimTreeGitDeleted            = 'DiagnosticError',
         -- Trouble
         TroubleNormal                 = 'Normal',
         TroubleNormalNC               = 'NormalNC',

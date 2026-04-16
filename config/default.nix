@@ -6,7 +6,6 @@
     ./colorschemes
     ./completion
     ./dap
-    ./filetrees
     ./git
     ./keys.nix
     ./languages
@@ -22,7 +21,6 @@
   colorschemes.enable = lib.mkDefault true;
   completion.enable = lib.mkDefault true;
   dap.enable = lib.mkDefault true;
-  filetrees.enable = lib.mkDefault true;
   git.enable = lib.mkDefault true;
   keys.enable = lib.mkDefault true;
   languages.enable = lib.mkDefault true;

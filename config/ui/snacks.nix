@@ -101,11 +101,37 @@
         # extraConfigLuaPost so snacks owns the UI hooks.
         input.enabled = true;
 
-        # Unified picker: backs the dashboard, vim.ui.select, and the
-        # keymap migration. Transparency is handled by clearing bg on
-        # SnacksPicker* highlights in base16-noctalia.nix (winblend
-        # alone doesn't propagate through snacks's layout system).
-        picker.enabled = true;
+        # Unified picker: backs the dashboard, vim.ui.select, the
+        # keymap surface, and the explorer below. Transparency is
+        # handled by clearing bg on SnacksPicker* highlights in
+        # base16-noctalia.nix (winblend alone doesn't propagate
+        # through snacks's layout system).
+        picker = {
+          enabled = true;
+          # File explorer (replaces nvim-tree). Right-side sidebar
+          # ~50 cols wide, follows the focused file, watches the
+          # filesystem for external writes.
+          sources.explorer = {
+            layout = {
+              preset = "sidebar";
+              layout = {
+                position = "right";
+                width = 50;
+              };
+            };
+            auto_close = false;
+            jump.close = false;
+            follow_file = true;
+            watch = true;
+          };
+        };
+
+        # Make :Snacks.explorer take over for `:e <dir>` / netrw, just
+        # as nvim-tree.openOnSetupFile did before.
+        explorer = {
+          enabled = true;
+          replace_netrw = true;
+        };
 
         # Misc QoL modules.
         quickfile.enabled = true;
@@ -137,9 +163,9 @@
                 and vim.bo[buf].buftype == ""
                 and not vim.tbl_contains({
                   "help", "dashboard", "snacks_dashboard",
-                  "NvimTree", "Trouble", "trouble",
+                  "snacks_picker_list", "snacks_picker_input",
+                  "Trouble", "trouble",
                   "lazy", "mason", "notify",
-                  "toggleterm",
                 }, vim.bo[buf].filetype)
             end
           '';
