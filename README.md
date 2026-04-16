@@ -290,7 +290,7 @@ Minuet AI is configured for manual triggering to reduce system load:
 | `<C-d>` | Normal | Half page down (centered) |
 | `<C-u>` | Normal | Half page up (centered) |
 | `<Esc>` | Normal | Clear search highlight |
-| `<leader>e` | Normal | Toggle file tree (nvim-tree) |
+| `<leader>e` | Normal | Toggle file explorer (snacks.explorer) |
 | `<leader>qq` | Normal | Quit all |
 | `<leader>uh` | Normal | Toggle inlay hints |
 | `<leader>ut` | Normal | Toggle undo tree |
@@ -340,7 +340,7 @@ json, regex, query), the motions become no-ops — this is intentional.
 - **bufferline** - Buffer line display with tabs and diagnostics integration
 
 ### Colorschemes
-- **base16-noctalia** - Dynamic base16 theming driven by noctalia's matugen palette. On every wallpaper change noctalia regenerates `~/.config/nvim/lua/matugen.lua` from `matugen-template.lua` and sends `SIGUSR1` to running nvim processes; our handler re-applies base16 colors, restores terminal transparency, rebuilds the lualine theme, and re-links plugin highlights (BufferLine, NvimTree, Trouble, WhichKey, Barbecue). Falls back to a hardcoded warm palette when `matugen.lua` is absent, so the flake remains portable (servers, CI). See "Theming setup" below.
+- **base16-noctalia** - Dynamic base16 theming driven by noctalia's matugen palette. On every wallpaper change noctalia regenerates `~/.config/nvim/lua/matugen.lua` from `matugen-template.lua` and sends `SIGUSR1` to running nvim processes; our handler re-applies base16 colors, restores terminal transparency, rebuilds the lualine theme, and re-links plugin highlights (BufferLine, Trouble, WhichKey, Barbecue). Falls back to a hardcoded warm palette when `matugen.lua` is absent, so the flake remains portable (servers, CI). See "Theming setup" below.
 
 ### Completion
 - **blink.cmp** - Rust-backed completion engine (replaces nvim-cmp). Sources: LSP, path, luasnip, buffer. Built-in fuzzy matcher, cmdline completion, ghost text, kind icons.
@@ -350,9 +350,6 @@ json, regex, query), the motions become no-ops — this is intentional.
 
 ### DAP (Debug Adapter Protocol)
 - **dap** - Debug adapter protocol with breakpoint signs + dap-ui + dap-virtual-text.
-
-### File Trees
-- **nvim-tree** - File explorer, auto-reload, focused-file tracking.
 
 ### Git Integration
 - **gitsigns** - Git status signs in the gutter.
@@ -372,7 +369,7 @@ json, regex, query), the motions become no-ops — this is intentional.
 - **fidget** - LSP progress toast notifications.
 
 ### UI (snacks-centric)
-- **snacks** - Unified QoL bundle: `dashboard`, `picker`, `indent`, `notifier`, `input`, `quickfile`, `words`, `bigfile` (auto-degrade > 1.5 MB). Replaces alpha.nvim, telescope, indent-blankline, noice, dressing.
+- **snacks** - Unified QoL bundle: `dashboard`, `picker`, `explorer` (right sidebar, width 50, follow-file, watch), `indent`, `notifier`, `input`, `quickfile`, `words`, `bigfile` (auto-degrade > 1.5 MB). Replaces alpha.nvim, telescope, nvim-tree, indent-blankline, noice, dressing.
 - **barbecue** - Winbar breadcrumb navigation.
 - **dressing.nvim** - Present as transitive dep of avante.nvim; its auto-patch of `vim.ui.input/select` is explicitly overridden in favor of snacks in `config/ui/snacks.nix`.
 
