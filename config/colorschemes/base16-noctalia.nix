@@ -115,10 +115,15 @@
         'FoldColumn', 'VertSplit', 'WinSeparator',
       }
 
-      -- BufferLine tab bar: transparent background, keep fg. Resolves
-      -- each group's foreground through any plugin_link it's pointing
-      -- at so we don't lose color hierarchy (selected tabs stay primary,
-      -- visible tabs stay Comment, etc.).
+      -- BufferLine tab bar transparency is a two-step job:
+      --   1. Plugin-native `highlights = { ... }` table in
+      --      config/bufferlines/bufferline.nix — survives bufferline's
+      --      own ColorScheme-triggered highlight regeneration.
+      --   2. Post-hoc clear on base16's own BufferLine* assignments —
+      --      base16-colorscheme.setup() (called by matugen.setup()) writes
+      --      its own bg for the generic BufferLine* surfaces, overriding
+      --      whatever we passed to bufferline's config. We override again.
+      -- Both are needed; neither alone is sufficient.
       local bufferline_transparent_groups = {
         'BufferLineFill', 'BufferLineBackground',
         'BufferLineBufferSelected', 'BufferLineBufferVisible', 'BufferLineBuffer',
@@ -256,19 +261,19 @@
         clear_bg_keep_fg(bufferline_transparent_groups)
         clear_bg_keep_fg(float_transparent_groups)
 
-        -- Snacks regenerates some of its highlight groups after initial
-        -- setup (e.g. on first picker open). Re-apply the float-group
-        -- transparency whenever snacks fires a ColorScheme-like event,
-        -- and also on SnacksWin.* / FileType snacks_* autocmds.
-        pcall(function()
-          vim.api.nvim_create_autocmd({ 'FileType', 'User' }, {
-            group = vim.api.nvim_create_augroup('NoctaliaSnacksTransparent', { clear = true }),
-            pattern = { 'snacks_*', 'SnacksWinOpen', 'SnacksPickerOpen' },
-            callback = function()
-              clear_bg_keep_fg(float_transparent_groups)
-            end,
-          })
-        end)
+        -- Snacks (picker in particular) regenerates some of its
+        -- highlight groups lazily — on first picker open, not at
+        -- startup. Re-apply float-group transparency whenever snacks
+        -- spawns one of its filetypes or fires its custom User events.
+        -- The augroup is cleared on re-entry so we don't stack
+        -- callbacks across repeated apply() invocations (SIGUSR1).
+        vim.api.nvim_create_autocmd({ 'FileType', 'User' }, {
+          group = vim.api.nvim_create_augroup('NoctaliaSnacksTransparent', { clear = true }),
+          pattern = { 'snacks_*', 'SnacksWinOpen', 'SnacksPickerOpen' },
+          callback = function()
+            clear_bg_keep_fg(float_transparent_groups)
+          end,
+        })
 
         pcall(function()
           local lualine = require('lualine')
