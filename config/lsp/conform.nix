@@ -1,9 +1,16 @@
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 {
   options = {
     conform.enable = lib.mkEnableOption "Enable conform module";
   };
   config = lib.mkIf config.conform.enable {
+    # Make the formatter binaries we reference below available on PATH.
+    # nixvim only auto-provides LSP server binaries, not conform's formatter
+    # binaries — so shfmt, stylua, etc. need to be pulled in explicitly.
+    extraPackages = with pkgs; [
+      shfmt
+      stylua
+    ];
     plugins.conform-nvim = {
       enable = true;
       settings = {

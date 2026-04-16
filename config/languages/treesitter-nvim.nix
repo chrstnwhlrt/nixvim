@@ -53,6 +53,18 @@ in
       pcall(function() require('nvim-ts-autotag').setup({}) end)
 
       -- ======================================================================
+      -- Filetype → parser aliases. Without the archived nvim-treesitter
+      -- plugin, Neovim does not auto-register these, so .tsx files,
+      -- shell scripts, etc. would fall back to the raw filetype name and
+      -- never find a matching parser. Restore the essentials.
+      -- ======================================================================
+      vim.treesitter.language.register('tsx',        { 'typescriptreact' })
+      vim.treesitter.language.register('javascript', { 'javascriptreact' })
+      vim.treesitter.language.register('bash',       { 'sh', 'zsh' })
+      vim.treesitter.language.register('ini',        { 'dosini' })
+      vim.treesitter.language.register('c_sharp',    { 'cs' })
+
+      -- ======================================================================
       -- Native treesitter activation (replaces nvim-treesitter setup)
       -- ======================================================================
       vim.api.nvim_create_autocmd('FileType', {
