@@ -135,23 +135,35 @@
         'BufferLineHint', 'BufferLineHintSelected', 'BufferLineHintVisible',
       }
 
-      -- Floating windows we want transparent: snacks.picker surfaces and
-      -- which-key. Setting winblend on snacks.picker didn't propagate
-      -- (snacks's layout system owns those window options internally),
-      -- so we clear bg on the actual highlight groups instead. fg is
+      -- Floating windows we want transparent. Snacks picker uses
+      -- winhighlight to remap Normal/NormalFloat to its own Snacks*
+      -- group names, which are regenerated internally after our apply()
+      -- runs — so we target both the generic NormalFloat fallback AND
+      -- every Snacks* / WhichKey* surface we can enumerate. fg is
       -- preserved the same way we do it for bufferline.
       local float_transparent_groups = {
-        -- snacks.picker
+        -- Generic floating window background (catches any popup that
+        -- doesn't bind winhighlight, e.g. LSP hover, blink.cmp menu).
+        'NormalFloat', 'FloatBorder', 'FloatTitle', 'FloatFooter',
+        -- snacks core
+        'SnacksNormal', 'SnacksNormalNC', 'SnacksWinBar', 'SnacksWinBarNC',
+        'SnacksWinSeparator', 'SnacksTitle', 'SnacksFooter',
+        'SnacksBackdrop', 'SnacksDim',
+        -- snacks.picker (outer box + input + list + preview sub-windows)
         'SnacksPicker', 'SnacksPickerNormal',
+        'SnacksPickerBox', 'SnacksPickerBoxBorder', 'SnacksPickerBoxTitle',
+        'SnacksPickerBoxCursorLine',
         'SnacksPickerInput', 'SnacksPickerInputBorder', 'SnacksPickerInputTitle',
+        'SnacksPickerInputFooter', 'SnacksPickerInputCursorLine',
         'SnacksPickerList', 'SnacksPickerListBorder', 'SnacksPickerListTitle',
+        'SnacksPickerListFooter', 'SnacksPickerListCursorLine',
         'SnacksPickerPreview', 'SnacksPickerPreviewBorder', 'SnacksPickerPreviewTitle',
-        'SnacksPickerBorder', 'SnacksPickerTitle', 'SnacksPickerBoxBorder',
-        'SnacksPickerBoxTitle', 'SnacksPickerMatch', 'SnacksPickerRow',
-        'SnacksPickerPrompt', 'SnacksPickerCursor', 'SnacksPickerCursorLine',
-        'SnacksPickerSelected',
+        'SnacksPickerPreviewFooter', 'SnacksPickerPreviewCursorLine',
+        'SnacksPickerBorder', 'SnacksPickerTitle',
+        'SnacksPickerMatch', 'SnacksPickerRow', 'SnacksPickerPrompt',
+        'SnacksPickerCursor', 'SnacksPickerCursorLine', 'SnacksPickerSelected',
         -- which-key popup
-        'WhichKeyNormal', 'WhichKeyBorder', 'WhichKeyTitle',
+        'WhichKeyNormal', 'WhichKeyBorder', 'WhichKeyTitle', 'WhichKeyFloat',
       }
 
       local function hex(name, attr, fallback)
@@ -234,6 +246,20 @@
         end
         clear_bg_keep_fg(bufferline_transparent_groups)
         clear_bg_keep_fg(float_transparent_groups)
+
+        -- Snacks regenerates some of its highlight groups after initial
+        -- setup (e.g. on first picker open). Re-apply the float-group
+        -- transparency whenever snacks fires a ColorScheme-like event,
+        -- and also on SnacksWin.* / FileType snacks_* autocmds.
+        pcall(function()
+          vim.api.nvim_create_autocmd({ 'FileType', 'User' }, {
+            group = vim.api.nvim_create_augroup('NoctaliaSnacksTransparent', { clear = true }),
+            pattern = { 'snacks_*', 'SnacksWinOpen', 'SnacksPickerOpen' },
+            callback = function()
+              clear_bg_keep_fg(float_transparent_groups)
+            end,
+          })
+        end)
 
         pcall(function()
           local lualine = require('lualine')
