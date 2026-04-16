@@ -149,6 +149,15 @@
         'SnacksNormal', 'SnacksNormalNC', 'SnacksWinBar', 'SnacksWinBarNC',
         'SnacksWinSeparator', 'SnacksTitle', 'SnacksFooter',
         'SnacksBackdrop', 'SnacksDim',
+        -- blink.cmp completion menu + documentation + signature help
+        'BlinkCmpMenu', 'BlinkCmpMenuBorder', 'BlinkCmpMenuSelection',
+        'BlinkCmpDoc', 'BlinkCmpDocBorder', 'BlinkCmpDocSeparator',
+        'BlinkCmpDocCursorLine',
+        'BlinkCmpSignatureHelp', 'BlinkCmpSignatureHelpBorder',
+        'BlinkCmpSignatureHelpActiveParameter',
+        'BlinkCmpLabel', 'BlinkCmpLabelDeprecated', 'BlinkCmpLabelMatch',
+        'BlinkCmpLabelDetail', 'BlinkCmpLabelDescription',
+        'BlinkCmpKind', 'BlinkCmpSource', 'BlinkCmpGhostText',
         -- snacks.picker (outer box + input + list + preview sub-windows)
         'SnacksPicker', 'SnacksPickerNormal',
         'SnacksPickerBox', 'SnacksPickerBoxBorder', 'SnacksPickerBoxTitle',
