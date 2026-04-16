@@ -115,6 +115,26 @@
         'FoldColumn', 'VertSplit', 'WinSeparator',
       }
 
+      -- BufferLine tab bar: transparent background, keep fg. Resolves
+      -- each group's foreground through any plugin_link it's pointing
+      -- at so we don't lose color hierarchy (selected tabs stay primary,
+      -- visible tabs stay Comment, etc.).
+      local bufferline_transparent_groups = {
+        'BufferLineFill', 'BufferLineBackground',
+        'BufferLineBufferSelected', 'BufferLineBufferVisible', 'BufferLineBuffer',
+        'BufferLineSeparator', 'BufferLineSeparatorSelected', 'BufferLineSeparatorVisible',
+        'BufferLineIndicator', 'BufferLineIndicatorSelected', 'BufferLineIndicatorVisible',
+        'BufferLineModified', 'BufferLineModifiedSelected', 'BufferLineModifiedVisible',
+        'BufferLineDuplicate', 'BufferLineDuplicateSelected', 'BufferLineDuplicateVisible',
+        'BufferLineNumbers', 'BufferLineNumbersSelected', 'BufferLineNumbersVisible',
+        'BufferLineCloseButton', 'BufferLineCloseButtonSelected', 'BufferLineCloseButtonVisible',
+        'BufferLineTab', 'BufferLineTabSelected', 'BufferLineTabClose',
+        'BufferLineError', 'BufferLineErrorSelected', 'BufferLineErrorVisible',
+        'BufferLineWarning', 'BufferLineWarningSelected', 'BufferLineWarningVisible',
+        'BufferLineInfo', 'BufferLineInfoSelected', 'BufferLineInfoVisible',
+        'BufferLineHint', 'BufferLineHintSelected', 'BufferLineHintVisible',
+      }
+
       local function hex(name, attr, fallback)
         local h = vim.api.nvim_get_hl(0, { name = name, link = false })
         return h[attr] and string.format('#%06x', h[attr]) or fallback
@@ -179,6 +199,16 @@
         end
         for name, target in pairs(plugin_links) do
           vim.api.nvim_set_hl(0, name, { link = target })
+        end
+        -- Override bufferline bg = NONE while preserving whatever fg the
+        -- group resolves to (directly, or via plugin_links link chain).
+        for _, group in ipairs(bufferline_transparent_groups) do
+          local resolved = vim.api.nvim_get_hl(0, { name = group, link = false })
+          local attrs = { bg = 'NONE' }
+          if resolved.fg   then attrs.fg   = resolved.fg end
+          if resolved.bold then attrs.bold = resolved.bold end
+          if resolved.italic then attrs.italic = resolved.italic end
+          vim.api.nvim_set_hl(0, group, attrs)
         end
 
         pcall(function()

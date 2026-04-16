@@ -102,8 +102,16 @@
         input.enabled = true;
 
         # Unified picker: backs the dashboard, vim.ui.select, and the
-        # keymap migration.
-        picker.enabled = true;
+        # keymap migration. Slight transparency on picker surfaces so
+        # the terminal background bleeds through softly.
+        picker = {
+          enabled = true;
+          win = {
+            input.wo.winblend   = 10;
+            list.wo.winblend    = 10;
+            preview.wo.winblend = 10;
+          };
+        };
 
         # Misc QoL modules.
         quickfile.enabled = true;
