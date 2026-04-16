@@ -163,7 +163,8 @@
         key = "<C-u>";
         action = "<C-u>zz";
         options = {
-          desc = "Allow C-d and C-u to keep the cursor in the middle";
+          silent = true;
+          desc = "Allow <C-d> and <C-u> to keep the cursor in the middle";
         };
       }
 

@@ -120,15 +120,24 @@ in
       -- Goto-motions (]m, [m, ]], [[, ]M, [M, ][, []). Uses the textobjects
       -- query shipped with nvim-treesitter-textobjects (kept runtime-only).
       -- ======================================================================
-      -- Filetypes that own ]]/[[/][/[] via their own plugin (e.g. mkdnflow
-       -- for markdown heading navigation). We yield back to the default
-       -- mapping in those filetypes so the plugin's handler wins.
+      -- Filetypes that own heading-level motions via mkdnflow. For those,
+      -- call mkdnflow's Ex commands directly — using feedkeys with 'n'
+      -- (no-remap) would bypass mkdnflow's keymap and only run Vim's
+      -- built-in ]]/[[; using 'm' (remap) would recurse into this handler.
       local MARKDOWN_FTS = { markdown = true, markdown_inline = true }
+      local MKDN_HEADING_CMD = {
+        [']]'] = 'MkdnNextHeading',
+        ['[['] = 'MkdnPrevHeading',
+      }
       local function goto_capture(capture, dir, edge, keyseq)
         return function()
           if keyseq and MARKDOWN_FTS[vim.bo.filetype] then
-            local keys = vim.api.nvim_replace_termcodes(keyseq, true, false, true)
-            vim.api.nvim_feedkeys(keys, 'n', false)
+            local cmd = MKDN_HEADING_CMD[keyseq]
+            if cmd then
+              pcall(vim.cmd, cmd)
+            end
+            -- keyseq without mkdnflow equivalent ([ / ]) becomes a no-op
+            -- in markdown, which is fine — @class.outer has no meaning there.
             return
           end
           local parser = vim.treesitter.get_parser()

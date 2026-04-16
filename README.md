@@ -139,7 +139,8 @@ Minuet AI is configured for manual triggering to reduce system load:
 |-----|------|-------------|
 | `<leader>dB` | Normal | Breakpoint condition |
 | `<leader>db` | Normal | Toggle breakpoint |
-| `<leader>dc` / `<leader>da` | Normal | Continue |
+| `<leader>dc` | Normal | Continue |
+| `<leader>da` | Normal | Run with Args (prompts for CLI args) |
 | `<leader>dC` | Normal | Run to cursor |
 | `<leader>dg` | Normal | Go to line (no execute) |
 | `<leader>di` | Normal | Step into |
