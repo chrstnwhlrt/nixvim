@@ -76,7 +76,16 @@
               indent = 2;
               padding = 1;
             }
-            { section = "startup"; }
+            # NOTE: { section = "startup" } removed — it requires lazy.nvim's
+            # `lazy.stats` module which isn't available in a Nix-managed
+            # setup (our plugin manager is nixpkgs, not lazy.nvim). Replaced
+            # by a minimal timestamp footer.
+            {
+              text.__raw = ''
+                { { "  " .. os.date("%a %d %b %Y · %H:%M"), hl = "footer" } }
+              '';
+              padding = 1;
+            }
           ];
         };
 
