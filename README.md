@@ -11,6 +11,27 @@ Heavily inspired by
 nix run .
 ```
 
+## Theming setup (optional, for noctalia users)
+
+The `base16-noctalia` colorscheme hot-reloads from a noctalia-generated
+palette. For it to live-track wallpaper changes, two files need to exist
+outside this flake:
+
+1. **`~/.config/nvim/lua/matugen-template.lua`** — input template with
+   `{{colors.*.hex}}` placeholders that matugen fills in.
+2. **`~/.config/noctalia/user-templates.toml`** — registers the template:
+
+   ```toml
+   [templates.nvim-base16]
+   input_path  = "~/.config/nvim/lua/matugen-template.lua"
+   output_path = "~/.config/nvim/lua/matugen.lua"
+   post_hook   = "pkill -SIGUSR1 nvim"
+   ```
+
+Both files are typically managed by a dotfile manager (chezmoi in my
+setup). Without them the flake still works — it falls back to a
+hardcoded warm palette.
+
 ## Keybindings
 
 ### Leader Key
@@ -41,14 +62,13 @@ Minuet AI is configured for manual triggering to reduce system load:
 |-----|------|-------------|
 | `<C-j>` / `<C-n>` | Insert | Select next completion item |
 | `<C-k>` / `<C-p>` | Insert | Select previous completion item |
-| `<Tab>` | Insert/Select | Smart next/expand snippet |
-| `<S-Tab>` | Insert/Select | Smart previous/jump back |
-| `<C-e>` | Insert | Abort completion |
+| `<Tab>` | Insert/Select | Smart next / snippet forward / fallback |
+| `<S-Tab>` | Insert/Select | Smart previous / snippet backward / fallback |
+| `<C-e>` | Insert | Hide completion menu |
 | `<C-f>` | Insert | Scroll docs down |
 | `<C-b>` | Insert | Scroll docs up |
-| `<C-Space>` | Insert | Show completion menu |
-| `<CR>` | Insert | Confirm selection |
-| `<S-CR>` | Insert | Confirm with replace |
+| `<C-Space>` | Insert | Show menu / toggle docs |
+| `<CR>` | Insert | Accept |
 
 ### Window Management
 | Key | Mode | Description |
@@ -99,7 +119,6 @@ Minuet AI is configured for manual triggering to reduce system load:
 | `<leader>sk` | Normal | Keymaps |
 | `<leader>sM` | Normal | Man pages |
 | `<leader>sm` | Normal | Jump to marks |
-| `<leader>so` | Normal | Vim options |
 | `<leader>sR` | Normal | Resume last search |
 | `<leader>st` | Normal | Todo comments |
 | `<leader>:` | Normal | Command history |
@@ -243,8 +262,11 @@ Minuet AI is configured for manual triggering to reduce system load:
 | `<BS>` | Normal | Go back |
 | `<Del>` | Normal | Go forward |
 | `<M-CR>` | Normal | Destroy link |
-| `<Tab>` | Normal/Insert | Next link |
-| `<S-Tab>` | Normal/Insert | Previous link |
+| `<M-CR>` | Insert | Previous row in table (context-specific) |
+| `<Tab>` | Normal | Next link |
+| `<Tab>` | Insert | Next table cell |
+| `<S-Tab>` | Normal | Previous link |
+| `<S-Tab>` | Insert | Previous table cell |
 | `+` | Normal | Increase heading |
 | `-` | Normal | Decrease heading |
 | `]]` | Normal | Next heading ⚠️ Conflicts with TreeSitter |
@@ -260,7 +282,6 @@ Minuet AI is configured for manual triggering to reduce system load:
 | `yfa` | Normal | Yank file anchor link |
 | `<leader>ic`/`<leader>iC` | Normal | Insert column after/before |
 | `<leader>ir`/`<leader>iR` | Normal | Insert row below/above |
-| `<M-CR>` | Insert | Previous row (in tables) |
 
 ### Utilities
 | Key | Mode | Description |
@@ -316,13 +337,11 @@ json, regex, query), the motions become no-ops — this is intentional.
 
 ## Plugins
 
-Plugin set after the snacks-centric refactor:
-
 ### Bufferlines
 - **bufferline** - Buffer line display with tabs and diagnostics integration
 
 ### Colorschemes
-- **base16-noctalia** - Dynamic base16 theming driven by noctalia's matugen palette; hot-reloads on wallpaper change via SIGUSR1. Falls back to a hardcoded warm palette when `~/.config/nvim/lua/matugen.lua` is unavailable. Terminal transparency preserved.
+- **base16-noctalia** - Dynamic base16 theming driven by noctalia's matugen palette. On every wallpaper change noctalia regenerates `~/.config/nvim/lua/matugen.lua` from `matugen-template.lua` and sends `SIGUSR1` to running nvim processes; our handler re-applies base16 colors, restores terminal transparency, rebuilds the lualine theme, and re-links plugin highlights (BufferLine, NvimTree, Trouble, WhichKey, Barbecue). Falls back to a hardcoded warm palette when `matugen.lua` is absent, so the flake remains portable (servers, CI). See "Theming setup" below.
 
 ### Completion
 - **blink.cmp** - Rust-backed completion engine (replaces nvim-cmp). Sources: LSP, path, luasnip, buffer. Built-in fuzzy matcher, cmdline completion, ghost text, kind icons.
@@ -349,14 +368,13 @@ Plugin set after the snacks-centric refactor:
 
 ### LSP
 - **lsp** - 20+ language servers via vim.lsp.config-backed nixvim wrapper.
-- **conform-nvim** - Formatters (prettier, nixfmt, rustfmt).
+- **conform-nvim** - Formatters: `prettierd` (JS/TS/JSON/YAML/HTML/CSS/Markdown), `nixfmt`, `rustfmt`, `ruff_format` + `ruff_organize_imports` (Python), `shfmt` (sh/bash/zsh), `taplo` (toml), `stylua` (lua). Binaries pulled in via `extraPackages`.
 - **trouble** - Diagnostics/quickfix panel.
 - **fidget** - LSP progress toast notifications.
 
 ### UI (snacks-centric)
 - **snacks** - Unified QoL bundle: `dashboard`, `picker`, `indent`, `notifier`, `input`, `quickfile`, `words`, `bigfile` (auto-degrade > 1.5 MB), `scroll` (smooth). Replaces alpha.nvim, telescope, indent-blankline, noice, dressing.
 - **barbecue** - Winbar breadcrumb navigation.
-- **web-devicons** - File type icons.
 - **dressing.nvim** - Present as transitive dep of avante.nvim; its auto-patch of `vim.ui.input/select` is explicitly overridden in favor of snacks in `config/ui/snacks.nix`.
 
 ### Statusline
@@ -365,7 +383,11 @@ Plugin set after the snacks-centric refactor:
 ### Utilities
 - **avante** - AI coding assistant via Ollama (qwen2.5-coder:14b), sidebar UX.
 - **harpoon** - Quick file pinning/switching.
-- **mini.nvim** - `mini.comment` (native commentstring resolution), `mini.pairs` (replaces nvim-autopairs), `mini.ai` with treesitter-backed custom textobjects (af/if, ac/ic, aa/ia, ai/ii, al/il, at).
+- **mini.nvim** - Bundle of small modules:
+  - `mini.comment` — native commentstring resolution
+  - `mini.pairs` — auto-pairs (replaces nvim-autopairs)
+  - `mini.icons` — icon provider (replaces nvim-web-devicons; declarative `mockDevIcons = true` shim keeps third-party plugins happy)
+  - `mini.ai` — treesitter-backed custom textobjects (af/if, ac/ic, aa/ia, ai/ii, al/il, at)
 - **nvim-surround** - Surround/delete/change brackets & quotes.
 - **todo-comments**, **undotree**, **colorizer** (catgoose fork, actively maintained), **b64** (built on `vim.base64`) - Specialized utilities.
 - **which-key** - Discoverable keybinding help.
