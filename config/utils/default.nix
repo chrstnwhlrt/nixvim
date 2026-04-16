@@ -11,7 +11,6 @@
     ./harpoon.nix
     ./markdown-preview.nix
     ./mini.nix
-    ./nvim-autopairs.nix
     ./nvim-colorizer.nix
     ./nvim-surround.nix
     ./plenary.nix
@@ -30,7 +29,6 @@
     harpoon.enable = lib.mkDefault true;
     markdown-preview.enable = lib.mkDefault true;
     mini.enable = lib.mkDefault true;
-    nvim-autopairs.enable = lib.mkDefault true;
     colorizer.enable = lib.mkDefault true;
     nvim-surround.enable = lib.mkDefault true;
     plenary.enable = lib.mkDefault true;

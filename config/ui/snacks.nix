@@ -102,6 +102,16 @@
           enabled = true;
           debounce = 100;
         };
+        # Auto-disable treesitter/LSP for files > 1.5MB to keep editing
+        # responsive on huge logs, generated code, minified bundles.
+        bigfile = {
+          enabled = true;
+          notify = true;
+          size = 1.5 * 1024 * 1024;
+        };
+        # Smooth cursor-and-window scrolling (cheap, improves perceived
+        # latency for <C-d>/<C-u>, G, gg, etc.).
+        scroll.enabled = true;
 
         # Indent guides (replaces indent-blankline.nvim).
         indent = {
@@ -129,9 +139,15 @@
       };
     };
 
-    # dressing.nvim is pulled in as a transitive dep of avante.nvim and
-    # auto-patches vim.ui.input/select at plugin-load time. Re-point the
-    # hooks at snacks after dressing has done its thing.
+    # vim.ui hook ownership.
+    #
+    # dressing.nvim rides in as a transitive dep of avante.nvim (not
+    # something we ask for ourselves). When present, its plugin/*.lua
+    # auto-patches vim.ui.input and vim.ui.select at startup. We silence
+    # that auto-patch (if dressing is there at all — pcall-guarded, so
+    # it's a no-op when avante is disabled) and re-bind the hooks to
+    # snacks ourselves. End state: Snacks.input / Snacks.picker.select
+    # always own the UI, regardless of whether dressing is loaded.
     extraConfigLuaPost = ''
       pcall(function()
         require('dressing').setup({

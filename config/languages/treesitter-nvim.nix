@@ -62,11 +62,11 @@ in
 
       -- ======================================================================
       -- Incremental selection: <C-Space> grows, <BS> shrinks. Node history
-      -- lives in a buffer-local stack and resets on exiting visual mode.
+      -- lives in a buffer-local stack (capped at 100 entries to prevent
+      -- unbounded growth on pathological usage) and resets when leaving
+      -- visual-select mode for anything non-visual.
       -- ======================================================================
-      local function cursor_node()
-        return vim.treesitter.get_node()
-      end
+      local TS_INCR_MAX = 100
       local function select_range(sr, sc, er, ec)
         vim.api.nvim_win_set_cursor(0, { sr + 1, sc })
         vim.cmd('normal! v')
@@ -76,7 +76,7 @@ in
         local hist = vim.b.__ts_incr_hist
         local node
         if not hist or #hist == 0 then
-          node = cursor_node()
+          node = vim.treesitter.get_node()
           hist = {}
         else
           local last = hist[#hist]
@@ -90,6 +90,7 @@ in
         if not node then return end
         local sr, sc, er, ec = node:range()
         table.insert(hist, { sr = sr, sc = sc, er = er, ec = ec })
+        if #hist > TS_INCR_MAX then table.remove(hist, 1) end
         vim.b.__ts_incr_hist = hist
         select_range(sr, sc, er, ec)
       end
@@ -103,9 +104,16 @@ in
       end
       vim.keymap.set({ 'n', 'x' }, '<C-Space>', ts_grow,   { desc = 'TS: grow selection' })
       vim.keymap.set('x',          '<BS>',      ts_shrink, { desc = 'TS: shrink selection' })
+      -- Reset history whenever we leave visual/select for any other mode,
+      -- not only normal. Fixes a small leak on v -> i / v -> c transitions.
       vim.api.nvim_create_autocmd('ModeChanged', {
-        pattern = { 'v:n', 'V:n', '\22:n' },
-        callback = function() vim.b.__ts_incr_hist = nil end,
+        pattern = { 'v:*', 'V:*', '\22:*', 's:*', 'S:*', '\19:*' },
+        callback = function(args)
+          local _, new_mode = args.match:match('^(.-):(.+)$')
+          if not new_mode:match('^[vVsS\22\19]') then
+            vim.b.__ts_incr_hist = nil
+          end
+        end,
       })
 
       -- ======================================================================

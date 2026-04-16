@@ -160,7 +160,7 @@ Minuet AI is configured for manual triggering to reduce system load:
 | Key | Mode | Description |
 |-----|------|-------------|
 | `<leader>ha` | Normal | Add file to Harpoon |
-| `<C-e>` | Normal | Toggle Harpoon menu ⚠️ Conflicts with cmp abort |
+| `<C-e>` | Normal | Toggle Harpoon menu ⚠️ Conflicts with blink.cmp hide in Insert |
 | `<leader>hj` | Normal | Navigate to file 1 |
 | `<leader>hk` | Normal | Navigate to file 2 |
 | `<leader>hl` | Normal | Navigate to file 3 |
@@ -198,7 +198,7 @@ Minuet AI is configured for manual triggering to reduce system load:
 | `S{char}` | Visual | Surround selection |
 | `gS{char}` | Visual | Surround selection on new lines |
 
-#### Comments (comment.nvim - Default Keybindings)
+#### Comments (mini.comment - Default Keybindings)
 | Key | Mode | Description |
 |-----|------|-------------|
 | `gcc` | Normal | Toggle line comment |
@@ -250,7 +250,7 @@ Minuet AI is configured for manual triggering to reduce system load:
 | `[[` | Normal | Previous heading ⚠️ Conflicts with TreeSitter |
 | `o` | Normal | New list item below |
 | `O` | Normal | New list item above |
-| `<C-Space>` | Normal/Visual | Toggle todo ⚠️ Conflicts with cmp/TreeSitter |
+| `<C-Space>` | Normal/Visual | Toggle todo ⚠️ Conflicts with blink.cmp complete (Insert) / TreeSitter incr-select (Normal) |
 | `<F2>` | Normal | Move source |
 | `<leader>f` | Normal | Fold section |
 | `<leader>F` | Normal | Unfold section |
@@ -292,11 +292,19 @@ Minuet AI is configured for manual triggering to reduce system load:
 
 ### Potential Conflicts
 ⚠️ **Note**: Some keybindings have conflicts but work in different modes:
-- `<C-e>`: Harpoon menu (Normal) vs CMP abort (Insert)
-- `<C-Space>`: CMP complete (Insert) vs TreeSitter selection (Normal) vs mkdnflow todo (Normal)
+- `<C-e>`: Harpoon menu (Normal) vs blink.cmp hide (Insert)
+- `<C-Space>`: blink.cmp complete (Insert) vs TreeSitter incr-select grow (Normal/Visual) vs mkdnflow todo (Normal)
 - `<leader>p`: Paste without yank (Visual) vs mkdnflow create link (Normal/Visual)
 - `]]`/`[[`: TreeSitter class navigation vs mkdnflow heading navigation
-- `<Tab>`: Buffer navigation (Normal) vs CMP/snippet expansion (Insert) vs mkdnflow link navigation
+- `<Tab>`: Buffer navigation (Normal) vs blink.cmp / snippet expansion (Insert) vs mkdnflow link navigation
+
+#### TreeSitter goto-motions — language support
+`]m`/`[m`/`]M`/`[M` (function) and `]]`/`[[`/`][`/`[]` (class) use the
+`@function.outer` and `@class.outer` captures from
+`nvim-treesitter-textobjects` queries. Well supported: **lua, javascript,
+typescript, tsx, python, rust, go, c, cpp, java, bash, nix, ruby, elixir**
+and many more. In languages without these captures (plain markdown, yaml,
+json, regex, query), the motions become no-ops — this is intentional.
 
 ## Plugins
 

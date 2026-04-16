@@ -12,6 +12,9 @@
       # declarative-friendly modules live in this table.
       modules = {
         comment = { };
+        # Auto-pairs for (), [], {}, "", '', ``. Replaces nvim-autopairs
+        # with a lighter, TS-aware impl that's already bundled in mini.
+        pairs = { };
       };
     };
 
