@@ -8,6 +8,15 @@
     set.enable = lib.mkEnableOption "Enable set module";
   };
   config = lib.mkIf config.set.enable {
+    # Disable Vim's built-in netrw — we use snacks.explorer for local
+    # directory browsing and don't use netrw's remote-file features
+    # (scp://, ftp://). Setting these globals before plugin sourcing
+    # is the standard way to keep netrwPlugin.vim out of runtime.
+    globals = {
+      loaded_netrw = 1;
+      loaded_netrwPlugin = 1;
+    };
+
     opts = {
       # Enable relative line numbers
       number = true;
