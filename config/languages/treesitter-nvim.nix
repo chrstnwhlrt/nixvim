@@ -36,6 +36,14 @@ in
     # extraPlugins rather than via plugins.*.enable so that nixvim's
     # "needs plugins.treesitter" dependency check stays quiet — we
     # supply treesitter ourselves (natively, not through the wrapper).
+    #
+    # Note: :checkhealth nvim-treesitter will complain about
+    # "tree-sitter-cli vX.Y.Z is required". That check belongs to the
+    # archived nvim-treesitter plugin's install flow (for :TSInstall),
+    # which we don't use — parsers are all pre-built via nixpkgs. Adding
+    # pkgs.tree-sitter to extraPackages does not silence the warning
+    # (nixpkgs lags one minor version behind what the plugin wants), and
+    # the CLI is never invoked by our runtime. Safe to ignore.
     extraPlugins = with pkgs.vimPlugins; [
       treesitterRuntime
       textobjectsQueries
