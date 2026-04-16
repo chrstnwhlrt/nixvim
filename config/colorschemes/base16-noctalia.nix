@@ -146,6 +146,11 @@
       -- runs — so we target both the generic NormalFloat fallback AND
       -- every Snacks* / WhichKey* surface we can enumerate. fg is
       -- preserved the same way we do it for bufferline.
+      --
+      -- Deliberately NOT in this list (must keep their bg so the user
+      -- can see what is selected / hovered):
+      --   *CursorLine, *Selected, *Match, *MenuSelection,
+      --   *SignatureHelpActiveParameter
       local float_transparent_groups = {
         -- Generic floating window background (catches any popup that
         -- doesn't bind winhighlight, e.g. LSP hover, blink.cmp menu).
@@ -155,27 +160,23 @@
         'SnacksWinSeparator', 'SnacksTitle', 'SnacksFooter',
         'SnacksBackdrop', 'SnacksDim',
         -- blink.cmp completion menu + documentation + signature help
-        'BlinkCmpMenu', 'BlinkCmpMenuBorder', 'BlinkCmpMenuSelection',
+        'BlinkCmpMenu', 'BlinkCmpMenuBorder',
         'BlinkCmpDoc', 'BlinkCmpDocBorder', 'BlinkCmpDocSeparator',
-        'BlinkCmpDocCursorLine',
         'BlinkCmpSignatureHelp', 'BlinkCmpSignatureHelpBorder',
-        'BlinkCmpSignatureHelpActiveParameter',
-        'BlinkCmpLabel', 'BlinkCmpLabelDeprecated', 'BlinkCmpLabelMatch',
+        'BlinkCmpLabel', 'BlinkCmpLabelDeprecated',
         'BlinkCmpLabelDetail', 'BlinkCmpLabelDescription',
         'BlinkCmpKind', 'BlinkCmpSource', 'BlinkCmpGhostText',
         -- snacks.picker (outer box + input + list + preview sub-windows)
         'SnacksPicker', 'SnacksPickerNormal',
         'SnacksPickerBox', 'SnacksPickerBoxBorder', 'SnacksPickerBoxTitle',
-        'SnacksPickerBoxCursorLine',
         'SnacksPickerInput', 'SnacksPickerInputBorder', 'SnacksPickerInputTitle',
-        'SnacksPickerInputFooter', 'SnacksPickerInputCursorLine',
+        'SnacksPickerInputFooter',
         'SnacksPickerList', 'SnacksPickerListBorder', 'SnacksPickerListTitle',
-        'SnacksPickerListFooter', 'SnacksPickerListCursorLine',
+        'SnacksPickerListFooter',
         'SnacksPickerPreview', 'SnacksPickerPreviewBorder', 'SnacksPickerPreviewTitle',
-        'SnacksPickerPreviewFooter', 'SnacksPickerPreviewCursorLine',
+        'SnacksPickerPreviewFooter',
         'SnacksPickerBorder', 'SnacksPickerTitle',
-        'SnacksPickerMatch', 'SnacksPickerRow', 'SnacksPickerPrompt',
-        'SnacksPickerCursor', 'SnacksPickerCursorLine', 'SnacksPickerSelected',
+        'SnacksPickerRow', 'SnacksPickerPrompt',
         -- which-key popup
         'WhichKeyNormal', 'WhichKeyBorder', 'WhichKeyTitle', 'WhichKeyFloat',
       }
