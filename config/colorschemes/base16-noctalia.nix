@@ -174,6 +174,24 @@
         return h[attr] and string.format('#%06x', h[attr]) or fallback
       end
 
+      -- Set bg=NONE on each group while preserving fg/bold/italic.
+      -- Using a plain set_hl(..., { bg = 'NONE' }) REPLACES the highlight
+      -- entry and wipes the base16-provided fg — which then breaks any
+      -- plugin that walks link chains to resolve e.g. Normal.fg
+      -- (Snacks.gh's health probe → DiffAdd → SnacksGhNormalFloat → Normal
+      -- crashed in Snacks.util.blend with a nil fg). Used for every
+      -- transparency surface below, including Normal itself.
+      local function clear_bg_keep_fg(groups)
+        for _, group in ipairs(groups) do
+          local resolved = vim.api.nvim_get_hl(0, { name = group, link = false })
+          local attrs = { bg = 'NONE' }
+          if resolved.fg     then attrs.fg     = resolved.fg end
+          if resolved.bold   then attrs.bold   = resolved.bold end
+          if resolved.italic then attrs.italic = resolved.italic end
+          vim.api.nvim_set_hl(0, group, attrs)
+        end
+      end
+
       -- Derive a lualine theme from the live base16 highlights so mode
       -- badges and sections match the matugen palette. lualine's
       -- theme="auto" cannot resolve our custom base16 scheme on its own.
@@ -228,24 +246,9 @@
 
         vim.g.colors_name = 'base16-noctalia'
 
-        for _, group in ipairs(transparent_groups) do
-          vim.api.nvim_set_hl(0, group, { bg = 'NONE' })
-        end
+        clear_bg_keep_fg(transparent_groups)
         for name, target in pairs(plugin_links) do
           vim.api.nvim_set_hl(0, name, { link = target })
-        end
-        -- Override bg = NONE while preserving fg on groups where we
-        -- want transparency but need to keep the existing text color
-        -- (bufferline tabs, snacks.picker surfaces, which-key popup).
-        local function clear_bg_keep_fg(groups)
-          for _, group in ipairs(groups) do
-            local resolved = vim.api.nvim_get_hl(0, { name = group, link = false })
-            local attrs = { bg = 'NONE' }
-            if resolved.fg   then attrs.fg   = resolved.fg end
-            if resolved.bold then attrs.bold = resolved.bold end
-            if resolved.italic then attrs.italic = resolved.italic end
-            vim.api.nvim_set_hl(0, group, attrs)
-          end
         end
         clear_bg_keep_fg(bufferline_transparent_groups)
         clear_bg_keep_fg(float_transparent_groups)
