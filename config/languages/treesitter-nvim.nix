@@ -120,8 +120,17 @@ in
       -- Goto-motions (]m, [m, ]], [[, ]M, [M, ][, []). Uses the textobjects
       -- query shipped with nvim-treesitter-textobjects (kept runtime-only).
       -- ======================================================================
-      local function goto_capture(capture, dir, edge)
+      -- Filetypes that own ]]/[[/][/[] via their own plugin (e.g. mkdnflow
+       -- for markdown heading navigation). We yield back to the default
+       -- mapping in those filetypes so the plugin's handler wins.
+      local MARKDOWN_FTS = { markdown = true, markdown_inline = true }
+      local function goto_capture(capture, dir, edge, keyseq)
         return function()
+          if keyseq and MARKDOWN_FTS[vim.bo.filetype] then
+            local keys = vim.api.nvim_replace_termcodes(keyseq, true, false, true)
+            vim.api.nvim_feedkeys(keys, 'n', false)
+            return
+          end
           local parser = vim.treesitter.get_parser()
           if not parser then return end
           local tree = parser:parse()[1]
@@ -166,10 +175,12 @@ in
       vim.keymap.set('n', '[m', goto_capture('function.outer', 'prev', 'start'), { desc = 'Prev function start' })
       vim.keymap.set('n', ']M', goto_capture('function.outer', 'next', 'end'),   { desc = 'Next function end' })
       vim.keymap.set('n', '[M', goto_capture('function.outer', 'prev', 'end'),   { desc = 'Prev function end' })
-      vim.keymap.set('n', ']]', goto_capture('class.outer',    'next', 'start'), { desc = 'Next class start' })
-      vim.keymap.set('n', '[[', goto_capture('class.outer',    'prev', 'start'), { desc = 'Prev class start' })
-      vim.keymap.set('n', '][', goto_capture('class.outer',    'next', 'end'),   { desc = 'Next class end' })
-      vim.keymap.set('n', '[]', goto_capture('class.outer',    'prev', 'end'),   { desc = 'Prev class end' })
+      -- Class-level motions fall back to the buffer's own ]]/[[/][/[] in
+      -- markdown-family filetypes so mkdnflow's heading navigation works.
+      vim.keymap.set('n', ']]', goto_capture('class.outer', 'next', 'start', ']]'), { desc = 'Next class start' })
+      vim.keymap.set('n', '[[', goto_capture('class.outer', 'prev', 'start', '[['), { desc = 'Prev class start' })
+      vim.keymap.set('n', '][', goto_capture('class.outer', 'next', 'end',   ']['), { desc = 'Next class end' })
+      vim.keymap.set('n', '[]', goto_capture('class.outer', 'prev', 'end',   '[]'), { desc = 'Prev class end' })
     '';
   };
 }

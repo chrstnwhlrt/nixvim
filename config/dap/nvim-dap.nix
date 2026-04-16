@@ -84,7 +84,19 @@
       {
         mode = "n";
         key = "<leader>da";
-        action = "<cmd>lua require('dap').continue({ before = get_args })<cr>";
+        action.__raw = ''
+          function()
+            vim.ui.input({ prompt = 'Args: ' }, function(input)
+              if not input then return end
+              local args = vim.split(input, ' ', { trimempty = true })
+              require('dap').continue({ before = function(cfg)
+                cfg = vim.deepcopy(cfg)
+                cfg.args = args
+                return cfg
+              end })
+            end)
+          end
+        '';
         options = {
           silent = true;
           desc = "Run with Args";

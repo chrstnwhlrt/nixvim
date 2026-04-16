@@ -99,6 +99,11 @@
         WhichKeyFloat                 = 'NormalFloat',
         WhichKeyBorder                = 'FloatBorder',
         WhichKeyValue                 = 'Comment',
+        -- Barbecue winbar breadcrumbs
+        BarbecueEllipsis              = 'Comment',
+        BarbecueSeparator             = 'Comment',
+        BarbecueModified              = 'DiagnosticWarn',
+        BarbecueNormal                = 'Normal',
       }
 
       -- Surfaces that should stay transparent so the terminal background
