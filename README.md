@@ -333,7 +333,9 @@ Plugin set after the snacks-centric refactor:
 - **diffview** - Git diff viewer.
 
 ### Languages
-- **treesitter** - Parsing/highlighting for 24+ languages, autopair-aware folds.
+- **treesitter** - Native Neovim 0.12 treesitter (no `nvim-treesitter` plugin). Parsers + queries via nixpkgs, highlighting/folding via `vim.treesitter.start` + `vim.treesitter.foldexpr`. Custom Lua provides incremental selection (`<C-Space>`/`<BS>`) and goto-motions (`]m/[m/]]/[[/]M/[M/][/[]`). Textobjects handled by `mini.ai` with treesitter specs.
+- **treesitter-context** - Sticky function/class context at top of window.
+- **nvim-ts-autotag** - Auto-close and auto-rename HTML/JSX tags.
 - **mkdnflow** - Markdown workflow (links, headings, tables).
 
 ### LSP
@@ -343,7 +345,7 @@ Plugin set after the snacks-centric refactor:
 - **fidget** - LSP progress toast notifications.
 
 ### UI (snacks-centric)
-- **snacks** - Unified QoL bundle: `dashboard`, `picker`, `indent`, `notifier`, `input`, `quickfile`, `words`. Replaces alpha.nvim, telescope, indent-blankline, noice, dressing.
+- **snacks** - Unified QoL bundle: `dashboard`, `picker`, `indent`, `notifier`, `input`, `quickfile`, `words`, `bigfile` (auto-degrade > 1.5 MB), `scroll` (smooth). Replaces alpha.nvim, telescope, indent-blankline, noice, dressing.
 - **barbecue** - Winbar breadcrumb navigation.
 - **web-devicons** - File type icons.
 - **dressing.nvim** - Present as transitive dep of avante.nvim; its auto-patch of `vim.ui.input/select` is explicitly overridden in favor of snacks in `config/ui/snacks.nix`.
@@ -354,9 +356,9 @@ Plugin set after the snacks-centric refactor:
 ### Utilities
 - **avante** - AI coding assistant via Ollama (qwen2.5-coder:14b), sidebar UX.
 - **harpoon** - Quick file pinning/switching.
-- **mini.nvim** - `mini.comment` (ts-context-aware), `mini.cursorword`, `mini.ai` text objects.
+- **mini.nvim** - `mini.comment` (native commentstring resolution), `mini.pairs` (replaces nvim-autopairs), `mini.ai` with treesitter-backed custom textobjects (af/if, ac/ic, aa/ia, ai/ii, al/il, at).
 - **comment-box** - Boxed comment decorations.
-- **nvim-autopairs**, **nvim-surround** - Brackets/surround operations.
-- **todo-comments**, **undotree**, **colorizer**, **markdown-preview**, **b64** - Specialized utilities.
+- **nvim-surround** - Surround/delete/change brackets & quotes.
+- **todo-comments**, **undotree**, **colorizer** (catgoose fork, actively maintained), **markdown-preview**, **b64** (built on `vim.base64`) - Specialized utilities.
 - **which-key** - Discoverable keybinding help.
 - **plenary** - Shared Lua utilities (transitive dep of multiple plugins).
