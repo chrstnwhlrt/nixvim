@@ -300,7 +300,6 @@ Minuet AI is configured for manual triggering to reduce system load:
 
 ### Snacks.nvim background features (no keymap)
 - **`bigfile`** — Auto-disables treesitter & LSP on files > 1.5 MB so editing stays responsive on minified bundles, large logs, generated code.
-- **`scroll`** — Smooth cursor/window scrolling for `<C-d>` / `<C-u>` / `G` / `gg`.
 - **`words`** — 100 ms debounced highlight of all occurrences of the word under the cursor (LSP document-highlight aware).
 - **`quickfile`** — Renders the first visible buffer before plugins finish loading to make startup feel instant.
 - **`notifier`** — Unified notification stack (3 s default timeout).
@@ -373,7 +372,7 @@ json, regex, query), the motions become no-ops — this is intentional.
 - **fidget** - LSP progress toast notifications.
 
 ### UI (snacks-centric)
-- **snacks** - Unified QoL bundle: `dashboard`, `picker`, `indent`, `notifier`, `input`, `quickfile`, `words`, `bigfile` (auto-degrade > 1.5 MB), `scroll` (smooth). Replaces alpha.nvim, telescope, indent-blankline, noice, dressing.
+- **snacks** - Unified QoL bundle: `dashboard`, `picker`, `indent`, `notifier`, `input`, `quickfile`, `words`, `bigfile` (auto-degrade > 1.5 MB). Replaces alpha.nvim, telescope, indent-blankline, noice, dressing.
 - **barbecue** - Winbar breadcrumb navigation.
 - **dressing.nvim** - Present as transitive dep of avante.nvim; its auto-patch of `vim.ui.input/select` is explicitly overridden in favor of snacks in `config/ui/snacks.nix`.
 

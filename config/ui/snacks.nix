@@ -120,9 +120,6 @@
           notify = true;
           size = 1.5 * 1024 * 1024;
         };
-        # Smooth cursor-and-window scrolling (cheap, improves perceived
-        # latency for <C-d>/<C-u>, G, gg, etc.).
-        scroll.enabled = true;
 
         # Indent guides (replaces indent-blankline.nvim).
         indent = {
