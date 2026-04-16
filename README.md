@@ -276,6 +276,13 @@ Minuet AI is configured for manual triggering to reduce system load:
 | `<leader>be` | Visual | Encode base64 |
 | `<leader>bd` | Visual | Decode base64 |
 
+### Snacks.nvim background features (no keymap)
+- **`bigfile`** — Auto-disables treesitter & LSP on files > 1.5 MB so editing stays responsive on minified bundles, large logs, generated code.
+- **`scroll`** — Smooth cursor/window scrolling for `<C-d>` / `<C-u>` / `G` / `gg`.
+- **`words`** — 100 ms debounced highlight of all occurrences of the word under the cursor (LSP document-highlight aware).
+- **`quickfile`** — Renders the first visible buffer before plugins finish loading to make startup feel instant.
+- **`notifier`** — Unified notification stack (3 s default timeout).
+
 ### Copy/Paste/Delete
 | Key | Mode | Description |
 |-----|------|-------------|
@@ -358,7 +365,6 @@ Plugin set after the snacks-centric refactor:
 - **avante** - AI coding assistant via Ollama (qwen2.5-coder:14b), sidebar UX.
 - **harpoon** - Quick file pinning/switching.
 - **mini.nvim** - `mini.comment` (native commentstring resolution), `mini.pairs` (replaces nvim-autopairs), `mini.ai` with treesitter-backed custom textobjects (af/if, ac/ic, aa/ia, ai/ii, al/il, at).
-- **comment-box** - Boxed comment decorations.
 - **nvim-surround** - Surround/delete/change brackets & quotes.
 - **todo-comments**, **undotree**, **colorizer** (catgoose fork, actively maintained), **b64** (built on `vim.base64`) - Specialized utilities.
 - **which-key** - Discoverable keybinding help.

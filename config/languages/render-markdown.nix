@@ -8,8 +8,8 @@
       enable = true;
       settings = {
         # Render only in normal mode so you can still edit raw markdown
-        # without symbols in the way.
-        render_modes = [ "n" "c" "t" ];
+        # without symbols getting in the way.
+        render_modes = [ "n" ];
         # Uses web-devicons (already enabled) for filetype icons in code
         # blocks; no extra dep.
         completions.lsp.enabled = true;

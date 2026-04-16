@@ -7,7 +7,6 @@
   imports = [
     ./avante.nix
     ./b64.nix
-    ./comment-box.nix
     ./harpoon.nix
     ./mini.nix
     ./nvim-colorizer.nix
@@ -24,7 +23,6 @@
   config = lib.mkIf config.utils.enable {
     avante.enable = lib.mkDefault true;
     b64.enable = lib.mkDefault true;
-    comment-box.enable = lib.mkDefault true;
     harpoon.enable = lib.mkDefault true;
     mini.enable = lib.mkDefault true;
     colorizer.enable = lib.mkDefault true;
