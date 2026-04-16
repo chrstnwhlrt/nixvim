@@ -15,8 +15,23 @@
         # Auto-pairs for (), [], {}, "", '', ``. Replaces nvim-autopairs
         # with a lighter, TS-aware impl that's already bundled in mini.
         pairs = { };
+        # Unified icon provider (files, filetypes, LSP kinds, directories).
+        # Supersedes nvim-web-devicons with caching and ASCII fallback.
+        icons = { };
       };
     };
+
+    # Redirect every `require("nvim-web-devicons")` to mini.icons BEFORE
+    # any plugin setup can ask for it. package.preload fires once, on the
+    # first require(), which is almost always done lazily by UI plugins —
+    # but installing the hook in extraConfigLuaPre guarantees we never
+    # lose the race.
+    extraConfigLuaPre = ''
+      package.preload["nvim-web-devicons"] = function()
+        require("mini.icons").mock_nvim_web_devicons()
+        return package.loaded["nvim-web-devicons"]
+      end
+    '';
 
     # mini.ai setup with treesitter-based textobjects (replaces
     # nvim-treesitter-textobjects). Mirrors the original keymap surface:
