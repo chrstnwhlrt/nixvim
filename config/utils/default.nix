@@ -9,7 +9,6 @@
     ./b64.nix
     ./comment-box.nix
     ./harpoon.nix
-    ./markdown-preview.nix
     ./mini.nix
     ./nvim-colorizer.nix
     ./nvim-surround.nix
@@ -27,7 +26,6 @@
     b64.enable = lib.mkDefault true;
     comment-box.enable = lib.mkDefault true;
     harpoon.enable = lib.mkDefault true;
-    markdown-preview.enable = lib.mkDefault true;
     mini.enable = lib.mkDefault true;
     colorizer.enable = lib.mkDefault true;
     nvim-surround.enable = lib.mkDefault true;

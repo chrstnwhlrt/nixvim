@@ -272,7 +272,7 @@ Minuet AI is configured for manual triggering to reduce system load:
 | `<leader>qq` | Normal | Quit all |
 | `<leader>uh` | Normal | Toggle inlay hints |
 | `<leader>ut` | Normal | Toggle undo tree |
-| `<leader>cp` | Normal | Preview markdown |
+| `<leader>cp` | Normal | Toggle inline markdown render |
 | `<leader>be` | Visual | Encode base64 |
 | `<leader>bd` | Visual | Decode base64 |
 
@@ -337,6 +337,7 @@ Plugin set after the snacks-centric refactor:
 - **treesitter-context** - Sticky function/class context at top of window.
 - **nvim-ts-autotag** - Auto-close and auto-rename HTML/JSX tags.
 - **mkdnflow** - Markdown workflow (links, headings, tables).
+- **render-markdown** - Inline rendering (icons, colored headings, bullets, checkboxes, code blocks). Toggle with `<leader>cp`. Replaces the Node.js-based markdown-preview.nvim.
 
 ### LSP
 - **lsp** - 20+ language servers via vim.lsp.config-backed nixvim wrapper.
@@ -359,6 +360,6 @@ Plugin set after the snacks-centric refactor:
 - **mini.nvim** - `mini.comment` (native commentstring resolution), `mini.pairs` (replaces nvim-autopairs), `mini.ai` with treesitter-backed custom textobjects (af/if, ac/ic, aa/ia, ai/ii, al/il, at).
 - **comment-box** - Boxed comment decorations.
 - **nvim-surround** - Surround/delete/change brackets & quotes.
-- **todo-comments**, **undotree**, **colorizer** (catgoose fork, actively maintained), **markdown-preview**, **b64** (built on `vim.base64`) - Specialized utilities.
+- **todo-comments**, **undotree**, **colorizer** (catgoose fork, actively maintained), **b64** (built on `vim.base64`) - Specialized utilities.
 - **which-key** - Discoverable keybinding help.
 - **plenary** - Shared Lua utilities (transitive dep of multiple plugins).
