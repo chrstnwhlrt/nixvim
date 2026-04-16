@@ -20,6 +20,49 @@
                end
             '';
           };
+          # Transparent tab bar: bufferline generates highlights from
+          # this table after every ColorScheme event, so setting it
+          # plugin-natively is more robust than overriding highlights
+          # post-hoc from the colorscheme module.
+          highlights =
+            let t = { bg = "NONE"; }; in
+            {
+              fill                   = t;
+              background             = t;
+              buffer_selected        = t // { bold = true; italic = false; };
+              buffer_visible         = t;
+              separator              = t;
+              separator_selected     = t;
+              separator_visible      = t;
+              indicator_selected     = t;
+              modified               = t;
+              modified_selected      = t;
+              modified_visible       = t;
+              duplicate              = t;
+              duplicate_selected     = t;
+              duplicate_visible      = t;
+              numbers                = t;
+              numbers_selected       = t;
+              numbers_visible        = t;
+              close_button           = t;
+              close_button_selected  = t;
+              close_button_visible   = t;
+              tab                    = t;
+              tab_selected           = t;
+              tab_close              = t;
+              error                  = t;
+              error_selected         = t;
+              error_visible          = t;
+              warning                = t;
+              warning_selected       = t;
+              warning_visible        = t;
+              info                   = t;
+              info_selected          = t;
+              info_visible           = t;
+              hint                   = t;
+              hint_selected          = t;
+              hint_visible           = t;
+            };
         };
       };
     };

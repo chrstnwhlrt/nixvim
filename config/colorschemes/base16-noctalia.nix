@@ -135,6 +135,25 @@
         'BufferLineHint', 'BufferLineHintSelected', 'BufferLineHintVisible',
       }
 
+      -- Floating windows we want transparent: snacks.picker surfaces and
+      -- which-key. Setting winblend on snacks.picker didn't propagate
+      -- (snacks's layout system owns those window options internally),
+      -- so we clear bg on the actual highlight groups instead. fg is
+      -- preserved the same way we do it for bufferline.
+      local float_transparent_groups = {
+        -- snacks.picker
+        'SnacksPicker', 'SnacksPickerNormal',
+        'SnacksPickerInput', 'SnacksPickerInputBorder', 'SnacksPickerInputTitle',
+        'SnacksPickerList', 'SnacksPickerListBorder', 'SnacksPickerListTitle',
+        'SnacksPickerPreview', 'SnacksPickerPreviewBorder', 'SnacksPickerPreviewTitle',
+        'SnacksPickerBorder', 'SnacksPickerTitle', 'SnacksPickerBoxBorder',
+        'SnacksPickerBoxTitle', 'SnacksPickerMatch', 'SnacksPickerRow',
+        'SnacksPickerPrompt', 'SnacksPickerCursor', 'SnacksPickerCursorLine',
+        'SnacksPickerSelected',
+        -- which-key popup
+        'WhichKeyNormal', 'WhichKeyBorder', 'WhichKeyTitle',
+      }
+
       local function hex(name, attr, fallback)
         local h = vim.api.nvim_get_hl(0, { name = name, link = false })
         return h[attr] and string.format('#%06x', h[attr]) or fallback
@@ -200,16 +219,21 @@
         for name, target in pairs(plugin_links) do
           vim.api.nvim_set_hl(0, name, { link = target })
         end
-        -- Override bufferline bg = NONE while preserving whatever fg the
-        -- group resolves to (directly, or via plugin_links link chain).
-        for _, group in ipairs(bufferline_transparent_groups) do
-          local resolved = vim.api.nvim_get_hl(0, { name = group, link = false })
-          local attrs = { bg = 'NONE' }
-          if resolved.fg   then attrs.fg   = resolved.fg end
-          if resolved.bold then attrs.bold = resolved.bold end
-          if resolved.italic then attrs.italic = resolved.italic end
-          vim.api.nvim_set_hl(0, group, attrs)
+        -- Override bg = NONE while preserving fg on groups where we
+        -- want transparency but need to keep the existing text color
+        -- (bufferline tabs, snacks.picker surfaces, which-key popup).
+        local function clear_bg_keep_fg(groups)
+          for _, group in ipairs(groups) do
+            local resolved = vim.api.nvim_get_hl(0, { name = group, link = false })
+            local attrs = { bg = 'NONE' }
+            if resolved.fg   then attrs.fg   = resolved.fg end
+            if resolved.bold then attrs.bold = resolved.bold end
+            if resolved.italic then attrs.italic = resolved.italic end
+            vim.api.nvim_set_hl(0, group, attrs)
+          end
         end
+        clear_bg_keep_fg(bufferline_transparent_groups)
+        clear_bg_keep_fg(float_transparent_groups)
 
         pcall(function()
           local lualine = require('lualine')

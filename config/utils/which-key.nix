@@ -115,6 +115,9 @@
         ];
         win = {
           border = "none";
+          # Transparency is implemented by clearing bg on WhichKey*
+          # highlights in base16-noctalia.nix; keep winblend at 0
+          # so it doesn't dim the colors on top.
           wo.winblend = 0;
         };
       };
