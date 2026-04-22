@@ -31,10 +31,14 @@
         fuzzy.implementation = "prefer_rust_with_warning";
 
         completion = {
-          ghost_text.enabled = true;
+          # Silence auto-completion noise in markdown: no popup-while-
+          # typing, no inline ghost-text. <C-Space> still triggers the
+          # menu manually (see keymap above).
+          ghost_text.enabled.__raw = ''function() return vim.bo.filetype ~= "markdown" end'';
           accept.auto_brackets.enabled = true;
 
           menu = {
+            auto_show.__raw = ''function() return vim.bo.filetype ~= "markdown" end'';
             border = "rounded";
             draw = {
               columns = [
