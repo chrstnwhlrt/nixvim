@@ -216,6 +216,22 @@
                 vim.lsp.inlay_hint.enable(false)
               end
               vim.bo[args.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
+
+              -- Marksman indexes subfolder .md files lazily, so every
+              -- link into a subfolder shows as "broken" on fresh session
+              -- start until something triggers a re-index. Silence
+              -- Marksman's diagnostic display (underline / virtual_text
+              -- / signs). Diagnostics stay queryable via
+              -- vim.diagnostic.get(); Marksman keeps serving completion,
+              -- references, hover, symbols.
+              if client.name == "marksman" then
+                local ns = vim.lsp.diagnostic.get_namespace(client.id)
+                vim.diagnostic.config({
+                  underline    = false,
+                  virtual_text = false,
+                  signs        = false,
+                }, ns)
+              end
             end,
           })
         '';
