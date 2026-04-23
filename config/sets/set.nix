@@ -17,6 +17,17 @@
       loaded_netrwPlugin = 1;
     };
 
+    # Markdown: enable line wrap so long prose lines don't require
+    # horizontal scrolling. Spell stays globally disabled (see
+    # `opts.spell = false` below) — nothing flips it on per filetype.
+    autoCmd = [
+      {
+        event = "FileType";
+        pattern = "markdown";
+        command = "setlocal wrap";
+      }
+    ];
+
     opts = {
       # Enable relative line numbers
       number = true;
