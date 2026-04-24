@@ -6,6 +6,11 @@
   config = lib.mkIf config.mkdnflow.enable {
     plugins.mkdnflow = {
       enable = true;
+      # Resolve relative links from the CURRENT file's directory, not
+      # from the first markdown file opened in the session (mkdnflow's
+      # "first" default). Matches standard markdown-renderer / browser
+      # behaviour: `[x](sub/y.md)` in `a/b.md` points at `a/b/sub/y.md`.
+      settings.perspective.priority = "current";
       settings.mappings = {
           MkdnCreateLink = false;
           MkdnCreateLinkFromClipboard = [ [ "n" "v" ] "<leader>p" ];
