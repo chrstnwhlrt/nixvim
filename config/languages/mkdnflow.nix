@@ -27,9 +27,9 @@
           MkdnNewListItemAboveInsert = [ "n" "O" ];
           MkdnNewListItemBelowInsert = [ "n" "o" ];
           MkdnNextHeading = [ "n" "]]" ];
-          MkdnNextLink = [ "n" "<Tab>" ];
+          MkdnNextLink = false; # free <Tab> for BufferLineCycleNext in markdown
           MkdnPrevHeading = [ "n" "[[" ];
-          MkdnPrevLink = [ "n" "<S-Tab>" ];
+          MkdnPrevLink = false; # free <S-Tab> for BufferLineCyclePrev in markdown
           MkdnSTab = false;
           MkdnTab = false;
           MkdnTableNewColAfter = [ "n" "<leader>ic" ];
