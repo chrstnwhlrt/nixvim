@@ -207,51 +207,36 @@
             };
           };
         };
+        # nixvim renders `onAttach` as the body of its own LspAttach
+        # autocmd callback, with `client` and `bufnr` in scope. Write
+        # the body directly — wrapping in `nvim_create_autocmd` nests a
+        # second autocmd inside the first, which registers too late to
+        # match the attach event it was triggered by and never fires.
         onAttach = ''
-          vim.api.nvim_create_autocmd("LspAttach", {
-            group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-            callback = function(args)
-              local client = vim.lsp.get_client_by_id(args.data.client_id)
-              if client.server_capabilities.inlayHintProvider then
-                vim.lsp.inlay_hint.enable(false)
-              end
-              vim.bo[args.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-            end,
-          })
+          if client.server_capabilities.inlayHintProvider then
+            vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
+          end
+          vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
+
+          -- Marksman flags subfolder .md links as "broken" on cold start
+          -- (lazy index) — mkdnflow opens them fine, only the diagnostic
+          -- is wrong. Silence its diagnostic display on BOTH push and
+          -- pull namespaces: marksman advertises `diagnosticProvider`,
+          -- so nvim 0.11+ routes diagnostics through pull. Marksman
+          -- itself stays fully active for completion / references /
+          -- hover; diagnostics remain queryable via vim.diagnostic.get().
+          if client.name == "marksman" then
+            for _, is_pull in ipairs({ false, true }) do
+              local ns = vim.lsp.diagnostic.get_namespace(client.id, is_pull)
+              vim.diagnostic.config({
+                underline    = false,
+                virtual_text = false,
+                signs        = false,
+              }, ns)
+            end
+          end
         '';
       };
     };
-
-    # Standalone LspAttach autocmd just for Marksman: registers once
-    # at startup via extraConfigLuaPost (not wrapped inside
-    # plugins.lsp.onAttach, which nests autocmds in a way that silently
-    # skips the current attach event).
-    #
-    # Silences Marksman's link-broken diagnostic display. Marksman
-    # indexes subfolder .md files lazily, so every subfolder link
-    # shows as "broken" on cold start until mkdnflow's <CR>-follow
-    # triggers a re-index — but the link IS always valid. We turn off
-    # underline / virtual_text / signs on BOTH the push and pull
-    # diagnostic namespaces (marksman registers `diagnosticProvider`,
-    # so nvim 0.11+ uses the pull namespace). Diagnostics remain
-    # queryable via `vim.diagnostic.get()`; marksman keeps providing
-    # completion / references / hover.
-    extraConfigLuaPost = ''
-      vim.api.nvim_create_autocmd("LspAttach", {
-        group = vim.api.nvim_create_augroup("MarksmanSilence", { clear = true }),
-        callback = function(args)
-          local client = vim.lsp.get_client_by_id(args.data.client_id)
-          if not client or client.name ~= "marksman" then return end
-          for _, is_pull in ipairs({ false, true }) do
-            local ns = vim.lsp.diagnostic.get_namespace(client.id, is_pull)
-            vim.diagnostic.config({
-              underline    = false,
-              virtual_text = false,
-              signs        = false,
-            }, ns)
-          end
-        end,
-      })
-    '';
   };
 }
