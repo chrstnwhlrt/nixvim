@@ -216,26 +216,42 @@
                 vim.lsp.inlay_hint.enable(false)
               end
               vim.bo[args.buf].omnifunc = "v:lua.vim.lsp.omnifunc"
-
-              -- Marksman indexes subfolder .md files lazily, so every
-              -- link into a subfolder shows as "broken" on fresh session
-              -- start until something triggers a re-index. Silence
-              -- Marksman's diagnostic display (underline / virtual_text
-              -- / signs). Diagnostics stay queryable via
-              -- vim.diagnostic.get(); Marksman keeps serving completion,
-              -- references, hover, symbols.
-              if client.name == "marksman" then
-                local ns = vim.lsp.diagnostic.get_namespace(client.id)
-                vim.diagnostic.config({
-                  underline    = false,
-                  virtual_text = false,
-                  signs        = false,
-                }, ns)
-              end
             end,
           })
         '';
       };
     };
+
+    # Standalone LspAttach autocmd just for Marksman: registers once
+    # at startup via extraConfigLuaPost (not wrapped inside
+    # plugins.lsp.onAttach, which nests autocmds in a way that silently
+    # skips the current attach event).
+    #
+    # Silences Marksman's link-broken diagnostic display. Marksman
+    # indexes subfolder .md files lazily, so every subfolder link
+    # shows as "broken" on cold start until mkdnflow's <CR>-follow
+    # triggers a re-index — but the link IS always valid. We turn off
+    # underline / virtual_text / signs on BOTH the push and pull
+    # diagnostic namespaces (marksman registers `diagnosticProvider`,
+    # so nvim 0.11+ uses the pull namespace). Diagnostics remain
+    # queryable via `vim.diagnostic.get()`; marksman keeps providing
+    # completion / references / hover.
+    extraConfigLuaPost = ''
+      vim.api.nvim_create_autocmd("LspAttach", {
+        group = vim.api.nvim_create_augroup("MarksmanSilence", { clear = true }),
+        callback = function(args)
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          if not client or client.name ~= "marksman" then return end
+          for _, is_pull in ipairs({ false, true }) do
+            local ns = vim.lsp.diagnostic.get_namespace(client.id, is_pull)
+            vim.diagnostic.config({
+              underline    = false,
+              virtual_text = false,
+              signs        = false,
+            }, ns)
+          end
+        end,
+      })
+    '';
   };
 }
