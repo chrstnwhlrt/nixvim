@@ -217,24 +217,6 @@
             vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
           end
           vim.bo[bufnr].omnifunc = "v:lua.vim.lsp.omnifunc"
-
-          -- Marksman flags subfolder .md links as "broken" on cold start
-          -- (lazy index) — mkdnflow opens them fine, only the diagnostic
-          -- is wrong. Silence its diagnostic display on BOTH push and
-          -- pull namespaces: marksman advertises `diagnosticProvider`,
-          -- so nvim 0.11+ routes diagnostics through pull. Marksman
-          -- itself stays fully active for completion / references /
-          -- hover; diagnostics remain queryable via vim.diagnostic.get().
-          if client.name == "marksman" then
-            for _, is_pull in ipairs({ false, true }) do
-              local ns = vim.lsp.diagnostic.get_namespace(client.id, is_pull)
-              vim.diagnostic.config({
-                underline    = false,
-                virtual_text = false,
-                signs        = false,
-              }, ns)
-            end
-          end
         '';
       };
     };
