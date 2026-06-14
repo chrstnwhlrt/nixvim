@@ -87,11 +87,6 @@
         WhichKeyFloat                 = 'NormalFloat',
         WhichKeyBorder                = 'FloatBorder',
         WhichKeyValue                 = 'Comment',
-        -- Barbecue winbar breadcrumbs
-        BarbecueEllipsis              = 'Comment',
-        BarbecueSeparator             = 'Comment',
-        BarbecueModified              = 'DiagnosticWarn',
-        BarbecueNormal                = 'Normal',
       }
 
       -- Surfaces that should stay transparent so the terminal background
@@ -101,6 +96,8 @@
         'Normal', 'NormalNC', 'EndOfBuffer',
         'SignColumn', 'LineNr', 'CursorLineNr',
         'FoldColumn', 'VertSplit', 'WinSeparator',
+        -- dropbar renders its breadcrumbs in the winbar row
+        'WinBar', 'WinBarNC',
       }
 
       -- BufferLine tab bar transparency is a two-step job:

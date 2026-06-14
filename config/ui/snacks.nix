@@ -1,9 +1,14 @@
-{ lib, config, ... }:
+{ lib, config, pkgs, ... }:
 {
   options = {
     snacks.enable = lib.mkEnableOption "Enable snacks module";
   };
   config = lib.mkIf config.snacks.enable {
+    # Snacks.explorer uses an OS trash command for recoverable deletes;
+    # without one it falls back to permanent rm. trash-cli provides the
+    # `trash` binary so file deletion from the explorer is undoable.
+    extraPackages = [ pkgs.trash-cli ];
+
     plugins.snacks = {
       enable = true;
       settings = {
@@ -189,12 +194,15 @@
           select = { enabled = false },
         })
       end)
-      vim.ui.input = function(opts, on_confirm)
-        return Snacks.input(opts, on_confirm)
-      end
-      vim.ui.select = function(items, opts, on_choice)
-        return Snacks.picker.select(items, opts, on_choice)
-      end
+      -- Assign Snacks' handlers directly rather than via a closure: this
+      -- still wins the ordering battle against dressing's auto-patch, and
+      -- also satisfies Snacks' own health check, which asserts identity.
+      -- The input check compares against the inner handler function
+      -- (Snacks.input.input), NOT the callable Snacks.input table — they
+      -- behave the same when called but only the function passes the
+      -- identity test. select compares against the public picker function.
+      vim.ui.input = Snacks.input.input
+      vim.ui.select = Snacks.picker.select
     '';
   };
 }

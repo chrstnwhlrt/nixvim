@@ -5,7 +5,7 @@
 }:
 {
   imports = [
-    ./barbecue.nix
+    ./dropbar.nix
     ./fidget.nix
     ./snacks.nix
     ./snacks-picker-keys.nix
@@ -15,7 +15,7 @@
     ui.enable = lib.mkEnableOption "Enable ui module";
   };
   config = lib.mkIf config.ui.enable {
-    barbecue.enable = lib.mkDefault true;
+    dropbar.enable = lib.mkDefault true;
     fidget.enable = lib.mkDefault true;
     snacks.enable = lib.mkDefault true;
     snacks-picker-keys.enable = lib.mkDefault true;
