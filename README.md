@@ -99,7 +99,7 @@ Minuet AI is configured for manual triggering to reduce system load:
 | `<leader>ff` | Normal | Find files |
 | `<leader>fr` | Normal | Recent files |
 | `<leader>fb` | Normal | Buffers |
-| `<leader>fa` | Normal | Live grep with args |
+| `<leader>fa` | Normal | Live grep (alias of `<leader>ft`) |
 | `<leader>ft` | Normal | Live grep |
 | `<C-p>` | Normal | Git files |
 | `<leader>gc` | Normal | Git commits |
@@ -141,13 +141,13 @@ Minuet AI is configured for manual triggering to reduce system load:
 | `<leader>cd` | Normal | Line diagnostics |
 | `<leader>cf` | Normal | Format buffer |
 | `<leader>cF` | Visual | Format selection |
-| `<leader>uf` | Normal | Toggle auto-format (buffer) |
-| `<leader>uF` | Normal | Toggle auto-format (global) |
+| `<leader>uf` | Normal | Toggle format-on-save (global, `:FormatToggle`) |
+| `<leader>uF` | Normal | Toggle format-on-save (buffer, `:FormatToggle!`) |
 
 ### Diagnostics (Trouble)
 | Key | Mode | Description |
 |-----|------|-------------|
-| `<leader>x` | Normal | Diagnostics toggle |
+| `<leader>x` | Normal | which-key group `+diagnostics/quickfix` |
 | `<leader>xx` | Normal | Buffer diagnostics |
 | `<leader>xX` | Normal | Workspace diagnostics |
 | `<leader>xt` | Normal | Todo list |
@@ -186,23 +186,13 @@ Minuet AI is configured for manual triggering to reduce system load:
 | `<leader>hl` | Normal | Navigate to file 3 |
 | `<leader>hm` | Normal | Navigate to file 4 |
 
-### Git (Gitsigns - Default Keybindings)
-| Key | Mode | Description |
-|-----|------|-------------|
-| `]c` | Normal | Next hunk |
-| `[c` | Normal | Previous hunk |
-| `<leader>hs` | Normal/Visual | Stage hunk |
-| `<leader>hr` | Normal/Visual | Reset hunk |
-| `<leader>hS` | Normal | Stage buffer |
-| `<leader>hu` | Normal | Undo stage hunk |
-| `<leader>hR` | Normal | Reset buffer |
-| `<leader>hp` | Normal | Preview hunk |
-| `<leader>hb` | Normal | Blame line |
-| `<leader>tb` | Normal | Toggle current line blame |
-| `<leader>hd` | Normal | Diff this |
-| `<leader>hD` | Normal | Diff this ~ |
-| `<leader>td` | Normal | Toggle deleted |
-| `ih` | Operator/Visual | Select hunk |
+### Git (Gitsigns)
+Gitsigns is sign-column only in this config: it draws `+`/`~`/`_`
+markers and feeds Trouble, but **no hunk keymaps are configured**
+(no `on_attach`). `]c`/`[c` remain Vim's built-in diff-mode jumps.
+Staging/reset is done via `<leader>gs` (git status picker), diffview
+or the CLI. This also means the `<leader>h*` namespace belongs solely
+to Harpoon.
 
 ### Text Manipulation
 
@@ -340,20 +330,22 @@ json, regex, query), the motions become no-ops — this is intentional.
 - **bufferline** - Buffer line display with tabs and diagnostics integration
 
 ### Colorschemes
-- **base16-noctalia** - Dynamic base16 theming driven by noctalia's matugen palette. On every wallpaper change noctalia regenerates `~/.config/nvim/lua/matugen.lua` from `matugen-template.lua` and sends `SIGUSR1` to running nvim processes; our handler re-applies base16 colors, restores terminal transparency, rebuilds the lualine theme, and re-links plugin highlights (BufferLine, Trouble, WhichKey, Barbecue). Falls back to a hardcoded warm palette when `matugen.lua` is absent, so the flake remains portable (servers, CI). See "Theming setup" below.
+- **base16-noctalia** - Dynamic base16 theming driven by noctalia's matugen palette. On every wallpaper change noctalia regenerates `~/.config/nvim/lua/matugen.lua` from `matugen-template.lua` and sends `SIGUSR1` to running nvim processes; our handler re-applies base16 colors, restores terminal transparency (incl. the WinBar row dropbar renders into), rebuilds the lualine theme, and re-links plugin highlights (BufferLine, Trouble, WhichKey). Falls back to a hardcoded warm palette when `matugen.lua` is absent, so the flake remains portable (servers, CI). See "Theming setup" below.
 
 ### Completion
 - **blink.cmp** - Rust-backed completion engine (replaces nvim-cmp). Sources: LSP, path, luasnip, buffer. Built-in fuzzy matcher, cmdline completion, ghost text, kind icons.
 - **luasnip** - Snippet engine (used via `snippets.preset = "luasnip"` in blink).
-- **minuet** - Manual-trigger AI completion via Ollama (qwen2.5-coder:7b).
+- **minuet** - Manual-trigger AI completion via Ollama (qwen2.5-coder:7b — still minuet's recommended FIM model).
 - **schemastore** - JSON/YAML schema validation.
 
 ### DAP (Debug Adapter Protocol)
 - **dap** - Debug adapter protocol with breakpoint signs + dap-ui + dap-virtual-text.
 
 ### Git Integration
-- **gitsigns** - Git status signs in the gutter.
-- **diffview** - Git diff viewer.
+- **gitsigns** - Git status signs in the gutter (display only, no keymaps).
+- **diffview** - Git diff viewer. Pinned to the actively maintained
+  drop-in fork `dlyongemallo/diffview-plus.nvim` (upstream sindrets is
+  unmaintained since 2024-08).
 
 ### Languages
 - **treesitter** - Native Neovim 0.12 treesitter (no `nvim-treesitter` plugin). Parsers + queries via nixpkgs, highlighting/folding via `vim.treesitter.start` + `vim.treesitter.foldexpr`. Custom Lua provides incremental selection (`<C-Space>`/`<BS>`) and goto-motions (`]m/[m/]]/[[/]M/[M/][/[]`). Textobjects handled by `mini.ai` with treesitter specs.
@@ -363,21 +355,21 @@ json, regex, query), the motions become no-ops — this is intentional.
 - **render-markdown** - Inline rendering (icons, colored headings, bullets, checkboxes, code blocks). Toggle with `<leader>cp`. Replaces the Node.js-based markdown-preview.nvim.
 
 ### LSP
-- **lsp** - 20+ language servers via vim.lsp.config-backed nixvim wrapper.
-- **conform-nvim** - Formatters: `prettierd` (JS/TS/JSON/YAML/HTML/CSS/Markdown), `nixfmt`, `rustfmt`, `ruff_format` + `ruff_organize_imports` (Python), `shfmt` (sh/bash/zsh), `taplo` (toml), `stylua` (lua). Binaries pulled in via `extraPackages`.
+- **lsp** - 20+ language servers via vim.lsp.config-backed nixvim wrapper. TypeScript via **vtsls** (VSCode language service wrapper, successor to ts_ls), Python via **basedpyright** + ruff. Kotlin still uses fwcd's kotlin-language-server until JetBrains' official kotlin-lsp is packaged in nixpkgs.
+- **conform-nvim** - Formatters: `prettierd` (JS/TS/JSON/YAML/HTML/CSS/Markdown), `nixfmt`, `rustfmt`, `ruff_format` + `ruff_organize_imports` (Python), `shfmt` (sh/bash/zsh), `taplo` (toml), `stylua` (lua). All binaries ship with the flake via `extraPackages`. Format-on-save is **off by default**; enable it per session with `:FormatToggle` / `<leader>uf` (global master switch). `:FormatToggle!` / `<leader>uF` toggles a buffer-local exception on top of that. Manual formatting stays on `<leader>cf`.
 - **trouble** - Diagnostics/quickfix panel.
 - **fidget** - LSP progress toast notifications.
 
 ### UI (snacks-centric)
 - **snacks** - Unified QoL bundle: `dashboard`, `picker`, `explorer` (right sidebar, width 50, follow-file, watch), `indent`, `notifier`, `input`, `quickfile`, `words`, `bigfile` (auto-degrade > 1.5 MB). Replaces alpha.nvim, telescope, nvim-tree, indent-blankline, noice, dressing.
-- **barbecue** - Winbar breadcrumb navigation.
+- **dropbar** - Winbar breadcrumb navigation (replaces the archived barbecue.nvim; no nvim-navic dependency).
 - **dressing.nvim** - Present as transitive dep of avante.nvim; its auto-patch of `vim.ui.input/select` is explicitly overridden in favor of snacks in `config/ui/snacks.nix`.
 
 ### Statusline
 - **lualine** - Statusline with matugen-derived theme.
 
 ### Utilities
-- **avante** - AI coding assistant via Ollama (qwen2.5-coder:14b), sidebar UX.
+- **avante** - AI coding assistant via Ollama (qwen3-coder 30B-MoE), sidebar UX.
 - **harpoon** - Quick file pinning/switching.
 - **mini.nvim** - Bundle of small modules:
   - `mini.comment` — native commentstring resolution
