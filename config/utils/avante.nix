@@ -11,7 +11,9 @@
         providers = {
           ollama = {
             endpoint = "http://127.0.0.1:11434"; # Note: No /v1 at the end
-            model = "qwen2.5-coder:14b";
+            # 30B-MoE coder model (≈3B active params) — substantially
+            # stronger than qwen2.5-coder:14b at similar local cost.
+            model = "qwen3-coder:latest";
             extra_request_body = {
               options = {
                 temperature = 0.75;

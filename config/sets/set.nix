@@ -37,7 +37,8 @@
       tabstop = 4;
       softtabstop = 4;
 
-      # Always show the tabline
+      # 1 = only show the tabline with ≥2 tab pages; bufferline raises
+      # this to 2 (always) itself during setup.
       showtabline = 1;
       hidden = true;
 
@@ -77,12 +78,13 @@
       # Decrease updatetime
       updatetime = 100; # faster completion (4000ms default)
 
-      # Set completeopt to have a better completion experience
+      # Set completeopt for built-in ins-completion (<C-x> family);
+      # blink.cmp manages its own menu behaviour independently of this.
       completeopt = [
         "menuone"
         "noselect"
         "noinsert"
-      ]; # mostly just for cmp
+      ];
 
       # Enable persistent undo history
       swapfile = false;

@@ -10,12 +10,10 @@
         auto_close = true;
       };
     };
+    # The "+diagnostics/quickfix" group label for <leader>x lives in
+    # which-key's spec (config/utils/which-key.nix), not here — a real
+    # mapping with that string as rhs would feed it as literal keys.
     keymaps = [
-      {
-        mode = "n";
-        key = "<leader>x";
-        action = "+diagnostics/quickfix";
-      }
       {
         mode = "n";
         key = "<leader>xx";

@@ -112,6 +112,12 @@
             mode = "n";
             group = "+windows";
           }
+
+          {
+            __unkeyed-1 = "<leader>x";
+            mode = "n";
+            group = "+diagnostics/quickfix";
+          }
         ];
         win = {
           border = "none";

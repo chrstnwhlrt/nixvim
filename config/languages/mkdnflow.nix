@@ -10,7 +10,8 @@
       # from the first markdown file opened in the session (mkdnflow's
       # "first" default). Matches standard markdown-renderer / browser
       # behaviour: `[x](sub/y.md)` in `a/b.md` points at `a/b/sub/y.md`.
-      settings.perspective.priority = "current";
+      # (`perspective.priority` was renamed to `path_resolution.primary`.)
+      settings.path_resolution.primary = "current";
       settings.mappings = {
           MkdnCreateLink = false;
           MkdnCreateLinkFromClipboard = [ [ "n" "v" ] "<leader>p" ];
