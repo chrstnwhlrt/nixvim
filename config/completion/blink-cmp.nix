@@ -7,6 +7,12 @@
     plugins.blink-cmp = {
       enable = true;
       settings = {
+        # Disable blink entirely in markdown buffers: no auto-popup, no
+        # ghost text, no manual <C-Space> trigger, no sources. Keeps prose
+        # and notes free of any completion UI. Every other filetype uses
+        # the normal auto-show + ghost-text configured below.
+        enabled.__raw = ''function() return vim.bo.filetype ~= "markdown" end'';
+
         # Explicit mappings (preset=none) so every binding is accounted for.
         # Preserves the full nvim-cmp keymap surface of the old config.
         keymap = {
@@ -31,14 +37,13 @@
         fuzzy.implementation = "prefer_rust_with_warning";
 
         completion = {
-          # Silence auto-completion noise in markdown: no popup-while-
-          # typing, no inline ghost-text. <C-Space> still triggers the
-          # menu manually (see keymap above).
-          ghost_text.enabled.__raw = ''function() return vim.bo.filetype ~= "markdown" end'';
+          # markdown is silenced by the buffer-level `enabled` gate above,
+          # so these stay unconditionally on for every other filetype.
+          ghost_text.enabled = true;
           accept.auto_brackets.enabled = true;
 
           menu = {
-            auto_show.__raw = ''function() return vim.bo.filetype ~= "markdown" end'';
+            auto_show = true;
             border = "rounded";
             draw = {
               columns = [
