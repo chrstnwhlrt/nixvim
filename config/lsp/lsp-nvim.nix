@@ -10,7 +10,6 @@
       };
       lsp = {
         enable = true;
-        capabilities = "offsetEncoding = 'utf-16'";
         servers = {
           clangd = {
             enable = true;
@@ -66,6 +65,9 @@
           jsonls = {
             enable = true;
           };
+          # Upstream (fwcd) is deprecated in favour of JetBrains' official
+          # kotlin-lsp, which is not packaged in nixpkgs yet. Switch to
+          # servers.kotlin_lsp once pkgs.kotlin-lsp lands.
           kotlin_language_server = {
             enable = true;
           };
@@ -84,48 +86,41 @@
           zls = {
             enable = true;
           };
-          ts_ls = {
-            enable = true;
-            autostart = true;
-            filetypes = [
-              "javascript"
-              "javascriptreact"
-              "typescript"
-              "typescriptreact"
-            ];
-            extraOptions = {
-              settings = {
-                javascript = {
-                  inlayHints = {
-                    includeInlayEnumMemberValueHints = true;
-                    includeInlayFunctionLikeReturnTypeHints = true;
-                    includeInlayFunctionParameterTypeHints = true;
-                    includeInlayParameterNameHints = "all";
-                    includeInlayParameterNameHintsWhenArgumentMatchesName = true;
-                    includeInlayPropertyDeclarationTypeHints = true;
-                    includeInlayVariableTypeHints = true;
-                    includeInlayVariableTypeHintsWhenTypeMatchesName = true;
-                  };
+          # vtsls wraps the official VSCode TypeScript language service and
+          # has replaced ts_ls as the de-facto standard. Inlay-hint options
+          # use the VSCode schema — translated 1:1 from the previous ts_ls
+          # includeInlay* flags (the suppress* options invert the old
+          # include*WhenMatchesName semantics).
+          vtsls =
+            let
+              inlayHints = {
+                parameterNames = {
+                  enabled = "all";
+                  suppressWhenArgumentMatchesName = false;
                 };
-                typescript = {
-                  inlayHints = {
-                    includeInlayEnumMemberValueHints = true;
-                    includeInlayFunctionLikeReturnTypeHints = true;
-                    includeInlayFunctionParameterTypeHints = true;
-                    includeInlayParameterNameHints = "all";
-                    includeInlayParameterNameHintsWhenArgumentMatchesName = true;
-                    includeInlayPropertyDeclarationTypeHints = true;
-                    includeInlayVariableTypeHints = true;
-                    includeInlayVariableTypeHintsWhenTypeMatchesName = true;
-                  };
+                parameterTypes.enabled = true;
+                variableTypes = {
+                  enabled = true;
+                  suppressWhenTypeMatchesName = false;
                 };
+                propertyDeclarationTypes.enabled = true;
+                functionLikeReturnTypes.enabled = true;
+                enumMemberValues.enabled = true;
+              };
+            in
+            {
+              enable = true;
+              extraOptions.settings = {
+                typescript.inlayHints = inlayHints;
+                javascript.inlayHints = inlayHints;
               };
             };
-          };
           eslint = {
             enable = true;
           };
-          pyright = {
+          # Maintained community fork of pyright with extra features and
+          # saner defaults; pairs with ruff below the same way pyright did.
+          basedpyright = {
             enable = true;
           };
           ruff = {
